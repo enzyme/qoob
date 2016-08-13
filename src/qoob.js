@@ -47,7 +47,7 @@
                         }
                     );
                 },
-                (instance => this._addEventListener(instance, event, closure)),
+                (instance => this._addEventListener(instance.target, event, closure)),
                 (_ => null)
             );
         }
