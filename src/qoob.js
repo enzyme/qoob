@@ -32,7 +32,7 @@
                 function(self) {
                     return self._forEach(
                         self.target,
-                        (target, _ => self._addEventListener(target, event, closure))
+                        (target, _ => self._addEventListener(self.target, event, closure))
                     );
                 }
                 (self => this._addEventListener(self, event, closure)),
@@ -42,13 +42,15 @@
 
         //
         _dispatch(collection_closure, single_closure, null_closure) {
-            if (this.target !== null && this.target.length > 0) {
-                return collection_closure(this);
-            } else if (this.target !== null) {
-                return single_closure(this);
+            if (this.target === null) {
+                return null_closure(this);
             }
 
-            return null_closure(this);
+            if (typeof this.target === 'array') {
+                return collection_closure(this);
+            }
+
+            return single_closure(this);
         }
 
         //
