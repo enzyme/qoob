@@ -54,15 +54,21 @@
 
         //
         _dispatch(collection_closure, single_closure, null_closure) {
-            console.log('_dispatch');
+            console.log('_dispatch...');
 
             if (this.target === null) {
+                console.log('target is null.');
+
                 return null_closure(this);
             }
 
             if (typeof this.target === 'array') {
+                console.log('target is array.');
+
                 return collection_closure(this);
             }
+
+            console.log('target is single.');
 
             return single_closure(this);
         }
@@ -83,9 +89,11 @@
 
         //
         _forEach(array, closure) {
-            console.log('_forEach');
+            console.log('_forEach...');
 
             for (var i = 0; i < array.length; i++) {
+                console.log('Calling closure on ', array[i]);
+
                 closure(array[i], i);
             }
         }
