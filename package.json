@@ -1,0 +1,24 @@
+{
+  "name": "qoob",
+  "version": "0.0.1",
+  "description": "A lightweight DOM manipulation library for common tasks.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/enzyme/qoob.git"
+  },
+  "keywords": [
+    "dom",
+    "manipulation",
+    "common"
+  ],
+  "author": "Tristan Strathearn <r3oath@gmail.com> (https://github.com/enzyme)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/enzyme/qoob/issues"
+  },
+  "homepage": "https://github.com/enzyme/qoob#readme"
+}
