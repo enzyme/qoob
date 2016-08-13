@@ -6,10 +6,10 @@
     class Qoob {
         constructor(selector) {
             if (typeof selector === 'string') {
-                return (this.selector = document.querySelectorAll(selector));
+                this.selector = document.querySelectorAll(selector);
+            } else {
+                this.selector = selector;
             }
-
-            return (this.selector = selector);
         }
 
         first() {
