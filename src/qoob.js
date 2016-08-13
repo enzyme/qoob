@@ -22,7 +22,7 @@
             return this._dispatch(
                 (self => (new Qoob(self.target[0]))),
                 (self => self),
-                (_ => null),
+                (_ => null)
             );
         }
 
@@ -32,11 +32,11 @@
                 function(self) {
                     return self._forEach(
                         self.target,
-                        (target, _ => this._addEventListener(target, event, closure))
+                        (target, _ => self._addEventListener(target, event, closure))
                     );
                 }
                 (self => this._addEventListener(self, event, closure)),
-                (_ => null),
+                (_ => null)
             );
         }
 
