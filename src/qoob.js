@@ -7,10 +7,16 @@
         //
         constructor(target) {
             if (target !== null && typeof target === 'object') {
+                console.log('got object');
+
                 this.target = target;
-            } else if (target !== null && typeof target === 'string') {
+            } else if (typeof target === 'string') {
+                console.log('got string');
+
                 this.target = document.querySelectorAll(target);
             } else {
+                console.log('got null');
+
                 this.target = null;
             }
 
@@ -19,31 +25,37 @@
 
         //
         first() {
+            console.log('first');
+
             return this._dispatch(
-                (self => (new Qoob(self.target[0]))),
-                (self => self),
+                (instance => (new Qoob(instance.target[0]))),
+                (instance => instance),
                 (_ => null)
             );
         }
 
         //
         on(event, closure) {
+            console.log('on');
+
             return this._dispatch(
-                function(self) {
-                    return self._forEach(
-                        self.target,
+                function(instance) {
+                    return instance._forEach(
+                        instance.target,
                         function(element, _) {
-                            self._addEventListener(element, event, closure)
+                            instance._addEventListener(element, event, closure)
                         }
                     );
                 }
-                (self => this._addEventListener(self, event, closure)),
+                (instance => this._addEventListener(instance, event, closure)),
                 (_ => null)
             );
         }
 
         //
         _dispatch(collection_closure, single_closure, null_closure) {
+            console.log('_dispatch');
+
             if (this.target === null) {
                 return null_closure(this);
             }
@@ -57,6 +69,9 @@
 
         //
         _addEventListener(element, event_name, closure) {
+            console.log('_addEventListener...');
+            console.log(element, event_name);
+
             if (element.addEventListener) {
                 element.addEventListener(event_name, closure);
             } else {
@@ -68,6 +83,8 @@
 
         //
         _forEach(array, closure) {
+            console.log('_forEach');
+
             for (var i = 0; i < array.length; i++) {
                 closure(array[i], i);
             }
