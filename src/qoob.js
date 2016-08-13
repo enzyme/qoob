@@ -32,7 +32,9 @@
                 function(self) {
                     return self._forEach(
                         self.target,
-                        (target, _ => self._addEventListener(self.target, event, closure))
+                        function(element, _) {
+                            self._addEventListener(element, event, closure)
+                        }
                     );
                 }
                 (self => this._addEventListener(self, event, closure)),
