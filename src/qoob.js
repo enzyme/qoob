@@ -3,7 +3,7 @@
     else if (typeof define == 'function' && typeof define.amd == 'object') define(definition);
     else this[name] = definition();
 }('qoob', function() {
-    return class Qoob {
+    class Qoob {
         //
         constructor(target) {
             if (target !== null && typeof target === 'object') {
@@ -25,5 +25,9 @@
 
             return null;
         }
+    }
+
+    return function(target) {
+        return new Qoob(target);
     }
 }));
