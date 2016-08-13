@@ -46,7 +46,7 @@
                             instance._addEventListener(element, event, closure)
                         }
                     );
-                }
+                },
                 (instance => this._addEventListener(instance, event, closure)),
                 (_ => null)
             );
