@@ -58,7 +58,7 @@
                 function(instance) {
                     console.log('Attaching event to ', instance.target);
 
-                    return this._addEventListener(instance.target, event, closure);
+                    return this._addEventListener(instance.target[0], event, closure);
                 },
                 (_ => null)
             );
