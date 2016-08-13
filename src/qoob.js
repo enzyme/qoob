@@ -4,92 +4,33 @@
     else this[name] = definition();
 }('qoob', function() {
     class Qoob {
-        //
-        constructor(target) {
-            if (target !== null && typeof target === 'object') {
-                console.log('got object...');
-
-                this.target = target;
-            } else if (typeof target === 'string') {
-                console.log('got string...');
-
-                this.target = document.querySelectorAll(target);
-            } else {
-                console.log('got null...');
-
-                this.target = null;
+        constructor(selector) {
+            if (typeof selector === 'string') {
+                return (this.selector = document.querySelectorAll(selector));
             }
 
-            console.log(this.target);
+            return (this.selector = selector);
+        }
+
+        first() {
+            if (typeof this.selector === 'array') {
+                return new Qoob(this.selector[0]);
+            }
 
             return this;
         }
 
-        //
-        first() {
-            console.log('first');
-
-            return this._dispatch(
-                function(instance) {
-                    return new Qoob(instance.target[0]);
-                },
-                function(instance) {
-                    return instance;
-                },
-                (_ => null)
-            );
-        }
-
-        //
         on(event, closure) {
-            console.log('on...');
-
-            return this._dispatch(
-                function(instance) {
-                    return instance._forEach(
-                        instance.target,
-                        function(element, _) {
-                            console.log('Attaching event to ', element);
-
-                            return instance._addEventListener(element, event, closure)
-                        }
-                    );
-                },
-                function(instance) {
-                    console.log('Attaching event to ', instance.target);
-
-                    return this._addEventListener(instance.target[0], event, closure);
-                },
-                (_ => null)
-            );
-        }
-
-        //
-        _dispatch(collection_closure, single_closure, null_closure) {
-            console.log('_dispatch...');
-
-            if (this.target === null) {
-                console.log('target is null.');
-
-                return null_closure(this);
+            if (typeof this.selector === 'array') {
+                return this._forEach(this.selector, function(element, _) {
+                    return this._addEventListener(element, event, closure);
+                });
             }
 
-            if (typeof this.target === 'array') {
-                console.log('target is array.');
-
-                return collection_closure(this);
-            }
-
-            console.log('target is single.');
-
-            return single_closure(this);
+            return this._addEventListener(this.selector, event, closure);
         }
 
-        //
         _addEventListener(element, event_name, closure) {
-            console.log('_addEventListener...');
-            console.log(element, event_name);
-
             if (element.addEventListener) {
                 element.addEventListener(event_name, closure);
             } else {
@@ -99,13 +40,8 @@
             }
         }
 
-        //
         _forEach(array, closure) {
-            console.log('_forEach...');
-
             for (var i = 0; i < array.length; i++) {
-                console.log('Calling closure on ', array[i]);
-
                 closure(array[i], i);
             }
         }
