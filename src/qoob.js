@@ -19,11 +19,54 @@
 
         //
         first() {
+            return this._dispatch(
+                (self => (new Qoob(self.target[0]))),
+                (self => self),
+                (_ => null),
+            );
+        }
+
+        //
+        on(event, closure) {
+            return this._dispatch(
+                function(self) {
+                    return self._forEach(
+                        self.target,
+                        (target, _ => this._addEventListener(target, event, closure))
+                    );
+                }
+                (self => this._addEventListener(self, event, closure)),
+                (_ => null),
+            );
+        }
+
+        //
+        _dispatch(collection_closure, single_closure, null_closure) {
             if (this.target !== null && this.target.length > 0) {
-                return new Qoob(this.target[0]);
+                return collection_closure(this);
+            } else if (this.target !== null) {
+                return single_closure(this);
             }
 
-            return null;
+            return null_closure(this);
+        }
+
+        //
+        _addEventListener(element, event_name, closure) {
+            if (element.addEventListener) {
+                element.addEventListener(event_name, closure);
+            } else {
+                element.attachEvent('on' + event_name, function() {
+                    closure.call(element);
+                });
+            }
+        }
+
+        //
+        _forEach(array, closure) {
+            for (var i = 0; i < array.length; i++) {
+                closure(array[i], i);
+            }
         }
     }
 
