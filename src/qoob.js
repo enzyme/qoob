@@ -7,18 +7,20 @@
         //
         constructor(target) {
             if (target !== null && typeof target === 'object') {
-                console.log('got object');
+                console.log('got object...');
 
                 this.target = target;
             } else if (typeof target === 'string') {
-                console.log('got string');
+                console.log('got string...');
 
                 this.target = document.querySelectorAll(target);
             } else {
-                console.log('got null');
+                console.log('got null...');
 
                 this.target = null;
             }
+
+            console.log(this.target);
 
             return this;
         }
@@ -28,26 +30,36 @@
             console.log('first');
 
             return this._dispatch(
-                (instance => (new Qoob(instance.target[0]))),
-                (instance => instance),
+                function(instance) {
+                    return new Qoob(instance.target[0]);
+                },
+                function(instance) {
+                    return instance;
+                },
                 (_ => null)
             );
         }
 
         //
         on(event, closure) {
-            console.log('on');
+            console.log('on...');
 
             return this._dispatch(
                 function(instance) {
                     return instance._forEach(
                         instance.target,
                         function(element, _) {
-                            instance._addEventListener(element, event, closure)
+                            console.log('Attaching event to ', element);
+
+                            return instance._addEventListener(element, event, closure)
                         }
                     );
                 },
-                (instance => this._addEventListener(instance.target, event, closure)),
+                function(instance) {
+                    console.log('Attaching event to ', instance.target);
+
+                    return this._addEventListener(instance.target, event, closure);
+                },
                 (_ => null)
             );
         }
