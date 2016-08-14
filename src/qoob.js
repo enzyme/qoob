@@ -74,7 +74,7 @@
             // TODO: Implement.
         },
 
-        children(selector, child_selector) {
+        children(selector, child_selector = null) {
             // TODO: Implement.
         },
 
