@@ -62,11 +62,31 @@
             // TODO: Implement.
         },
 
+        addClass(selector, class_name) {
+            // TODO: Implement.
+        },
+
+        removeClass(selector, class_name) {
+            // TODO: Implement.
+        },
+
+        hasClass(selector, class_name) {
+            // TODO: Implement.
+        },
+
+        children(selector, child_selector) {
+            // TODO: Implement.
+        },
+
         attr(selector, attribute, value = null) {
             // TODO: Implement.
         },
 
         val(selector, value = null) {
+            // TODO: Implement.
+        },
+
+        text(selector) {
             // TODO: Implement.
         },
 
