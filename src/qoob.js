@@ -15,6 +15,10 @@
         },
 
         find(selector) {
+            if (selector !== null && typeof selector === 'object') {
+                return [selector];
+            }
+
             return document.querySelectorAll(selector);
         },
 
