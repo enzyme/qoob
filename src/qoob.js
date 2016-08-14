@@ -3,51 +3,89 @@
     else if (typeof define == 'function' && typeof define.amd == 'object') define(definition);
     else this[name] = definition();
 }('qoob', function() {
-    class Qoob {
-        constructor(selector) {
-            if (typeof selector === 'string') {
-                this.selector = document.querySelectorAll(selector);
+    return {
+        first(selector) {
+            let elements = this.find(selector);
+
+            if (elements.length > 0) {
+                return elements[0];
+            }
+
+            return null;
+        },
+
+        find(selector) {
+            return document.querySelectorAll(selector);
+        },
+
+        on(selector, event, closure) {
+            this.each(selector, function(element, _) {
+                if (element.addEventListener) {
+                    element.addEventListener(event, closure);
+                } else {
+                    element.attachEvent('on' + event, function() {
+                        closure.call(element);
+                    });
+                }
+            });
+        },
+
+        fadeIn(selector) {
+            // TODO: Implement.
+        },
+
+        fadeOut(selector) {
+            // TODO: Implement.
+        },
+
+        hide(selector) {
+            this.each(selector, function(element, _) {
+                selector.style.display = 'none';
+            });
+        },
+
+        show(selector) {
+            this.each(selector, function(element, _) {
+                selector.style.display = '';
+            });
+        },
+
+        html(selector, content = null) {
+            // TODO: Implement.
+        },
+
+        css(selector, properties = {}) {
+            // TODO: Implement.
+        },
+
+        attr(selector, attribute, value = null) {
+            // TODO: Implement.
+        },
+
+        val(selector, value = null) {
+            // TODO: Implement.
+        },
+
+        each(selector, closure) {
+            var elements = this.find(selector);
+
+            for (var i = 0; i < elements.length; i++) {
+                closure(elements[i], i);
+            }
+        },
+
+        documentReady(closure) {
+            if (document.readyState != 'loading'){
+                closure();
+            } else if (document.addEventListener) {
+                document.addEventListener('DOMContentLoaded', closure);
             } else {
-                this.selector = selector;
-            }
-        }
-
-        first() {
-            if (typeof this.selector === 'array') {
-                return new Qoob(this.selector[0]);
-            }
-
-            return this;
-        }
-
-        on(event, closure) {
-            if (typeof this.selector === 'array') {
-                return this._forEach(this.selector, function(element, _) {
-                    return this._addEventListener(element, event, closure);
+                document.attachEvent('onreadystatechange', function() {
+                    if (document.readyState != 'loading') {
+                        closure();
+                    }
                 });
             }
-
-            return this._addEventListener(this.selector, event, closure);
-        }
-
-        _addEventListener(element, event_name, closure) {
-            if (element.addEventListener) {
-                element.addEventListener(event_name, closure);
-            } else {
-                element.attachEvent('on' + event_name, function() {
-                    closure.call(element);
-                });
-            }
-        }
-
-        _forEach(array, closure) {
-            for (var i = 0; i < array.length; i++) {
-                closure(array[i], i);
-            }
-        }
-    }
-
-    return function(target) {
-        return new Qoob(target);
+        },
     }
 }));
