@@ -40,13 +40,13 @@
 
         hide(selector) {
             this.each(selector, function(element, _) {
-                selector.style.display = 'none';
+                element.style.display = 'none';
             });
         },
 
         show(selector) {
             this.each(selector, function(element, _) {
-                selector.style.display = '';
+                element.style.display = '';
             });
         },
 
