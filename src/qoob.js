@@ -19,8 +19,7 @@
                 return null;
             }
 
-            if (typeof selector === 'array'
-                || true === this.isNodeList(selector)) {
+            if (selector.length > 1 || true === this.isNodeList(selector)) {
                 return selector;
             }
 
