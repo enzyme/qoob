@@ -61,7 +61,7 @@
         css(selector, properties = {}) {
             this.each(selector, function(element, _) {
                 for(var property in properties) {
-                    element[property] = properties[property];
+                    element.style[property] = properties[property];
                 }
             });
         },
