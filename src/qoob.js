@@ -152,7 +152,7 @@
                 } else {
                     self.each(element.children, function(child_element, _) {
                         // Skip comment nodes on IE8
-                        if (el.children[i].nodeType != 8) {
+                        if (child_element.nodeType != 8) {
                             children.unshift(child_element);
                         }
                     });
