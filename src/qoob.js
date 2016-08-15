@@ -172,9 +172,7 @@
 
             this.each(selector, function(element, _) {
                 if (value === null) {
-                    let attr_value = element.getAttribute(attribute);
-
-                    attr.unshift((attr_value !== '' ? attr_value : null));
+                    attr.unshift(element.getAttribute(attribute));
                 } else {
                     element.setAttribute(attribute, value);
                 }
@@ -190,9 +188,7 @@
 
             this.each(selector, function(element, _) {
                 if (value === null) {
-                    let val_value = element.value;
-
-                    val.unshift((val_value !== '' ? val_value : null));
+                    val.unshift(element.value);
                 } else {
                     element.value = value;
                 }
