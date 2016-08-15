@@ -75,11 +75,32 @@
         },
 
         addClass(selector, class_name) {
-            // TODO: Implement.
+            this.each(selector, function(element, _) {
+                if (element.classList) {
+                    element.classList.add(class_name);
+                } else {
+                    element.className += ' ' + class_name;
+                }
+            });
         },
 
         removeClass(selector, class_name) {
-            // TODO: Implement.
+            this.each(selector, function(element, _) {
+                if (element.classList) {
+                    element.classList.remove(class_name);
+                } else {
+                    element.className = element
+                        .className
+                        .replace(
+                            new RegExp(
+                                '(^|\\b)' +
+                                class_name.split(' ').join('|') +
+                                '(\\b|$)', 'gi'
+                            ),
+                            ' '
+                        );
+                }
+            });
         },
 
         hasClass(selector, class_name) {
