@@ -1,8 +1,8 @@
 (function(name, definition) {
     if (typeof module != 'undefined') module.exports = definition();
     else if (typeof define == 'function' && typeof define.amd == 'object') define(definition);
-    else this[name] = definition();
-}('qoob', function() {
+    else window[name] = definition();
+}('Qoob', function() {
     return {
         // Find and return the first element in the DOM matching the given
         // selector, otherwise return null.
