@@ -168,7 +168,19 @@
         },
 
         attr(selector, attribute, value = null) {
-            // TODO: Implement.
+            let attr = [];
+
+            this.each(selector, function(element, _) {
+                if (value === null) {
+                    attr.unshift(element.getAttribute(attribute));
+                } else {
+                    attr.setAttribute(attribute, value);
+                }
+            });
+
+            if (value === null) {
+                return this._allOrFirstInArray(attr);
+            }
         },
 
         val(selector, value = null) {
