@@ -74,7 +74,27 @@
         },
 
         fadeOut(selector) {
-            // TODO: Implement.
+            this.each(selector, function(element, _) {
+                var opacity = 1;
+                var last = +new Date();
+
+                element.style.opacity = 1;
+                element.style.filter = '';
+
+                var tick = function() {
+                    opacity -= (new Date() - last) / 400;
+                    element.style.opacity = opacity;
+                    element.style.filter = 'alpha(opacity=' + (100 * opacity) | 0 + ')';
+
+                    last = +new Date();
+
+                    if (opacity > 0) {
+                        (window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16);
+                    }
+                };
+
+                tick();
+            });
         },
 
         hide(selector) {
