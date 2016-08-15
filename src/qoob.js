@@ -174,7 +174,7 @@
                 if (value === null) {
                     attr.unshift(element.getAttribute(attribute));
                 } else {
-                    attr.setAttribute(attribute, value);
+                    element.setAttribute(attribute, value);
                 }
             });
 
