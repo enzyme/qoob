@@ -59,7 +59,11 @@
         },
 
         css(selector, properties = {}) {
-            // TODO: Implement.
+            this.each(selector, function(element, _) {
+                for(var property in properties) {
+                    element[property] = properties[property];
+                }
+            });
         },
 
         addClass(selector, class_name) {
