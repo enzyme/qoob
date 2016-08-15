@@ -206,7 +206,7 @@
                 if (value === null) {
                     text.unshift((element.textContent || element.innerText));
                 } else {
-                    if (el.textContent !== undefined) {
+                    if (element.textContent !== undefined) {
                         element.textContent = value;
                     } else {
                         element.innerText = value;
