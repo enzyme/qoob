@@ -4,6 +4,8 @@
     else this[name] = definition();
 }('qoob', function() {
     return {
+        // Find and return the first element in the DOM matching the given
+        // selector, otherwise return null.
         first(selector) {
             let elements = this.find(selector);
 
@@ -14,12 +16,16 @@
             return null;
         },
 
+        // Find and return an array of all elements in the DOM matching the
+        // given selector. If an array or NodeList is given, simply return
+        // the argument. If a single object is given, return the object
+        // in a single element array.
         find(selector) {
             if (selector === null) {
                 return null;
             }
 
-            if (selector.constructor === Array || true === this.isNodeList(selector)) {
+            if (selector.constructor === Array || true === this._isNodeList(selector)) {
                 return selector;
             }
 
@@ -30,13 +36,8 @@
             return document.querySelectorAll(selector);
         },
 
-        isNodeList(object) {
-            return (
-                typeof object.length != 'undefined'
-                && typeof object.item != 'undefined'
-            );
-        },
-
+        // Fire a callback when the specified event is fired on the provided DOM
+        // element(s). The callback will be provided with the event object.
         on(selector, event, closure) {
             this.each(selector, function(element, _) {
                 if (element.addEventListener) {
@@ -49,6 +50,8 @@
             });
         },
 
+        // Fade the selected DOM element(s) in. This function only
+        // animates opacity.
         fadeIn(selector, closure = null) {
             this.each(selector, function(element, _) {
                 var opacity = 0;
@@ -75,6 +78,8 @@
             });
         },
 
+        // Fade the selected DOM element(s) out. This function only
+        // animates opacity.
         fadeOut(selector, closure = null) {
             this.each(selector, function(element, _) {
                 var opacity = 1;
@@ -101,18 +106,22 @@
             });
         },
 
+        // Hide the selected DOM element(s) - the same as setting display: none.
         hide(selector) {
             this.each(selector, function(element, _) {
                 element.style.display = 'none';
             });
         },
 
-        show(selector) {
+        // Hide the selected DOM element(s) - the same as setting display: auto
+        // , or whatever is provided as the prefered display type.
+        show(selector, preferred_display = '') {
             this.each(selector, function(element, _) {
-                element.style.display = '';
+                element.style.display = preferred_display;
             });
         },
 
+        // Gets or sets the HTML content on the selected DOM element(s).
         html(selector, content = null) {
             let html = [];
 
@@ -129,6 +138,12 @@
             }
         },
 
+        // Sets the given CSS properties on the selected DOM element(s). The CSS
+        // properties should be provided as an object, eg:
+        // {
+        //      color: 'green',
+        //      fontSize: '18px',
+        // }
         css(selector, properties = {}) {
             this.each(selector, function(element, _) {
                 for(var property in properties) {
@@ -137,6 +152,7 @@
             });
         },
 
+        // Adds the given class to the selected DOM element(s).
         addClass(selector, class_name) {
             this.each(selector, function(element, _) {
                 if (element.classList) {
@@ -147,6 +163,7 @@
             });
         },
 
+        // Removes the given class on the selected DOM element(s).
         removeClass(selector, class_name) {
             this.each(selector, function(element, _) {
                 if (element.classList) {
@@ -166,6 +183,8 @@
             });
         },
 
+        // Returns true if any of the selected DOM element(s) have the given
+        // class attached to themselves.
         hasClass(selector, class_name) {
             let truth = false;
 
@@ -187,6 +206,8 @@
             return truth;
         },
 
+        // Returns all the children for the selected DOM element(s), or only
+        // the children match the provided selector.
         children(selector, child_selector = null) {
             let children = [];
             let self = this;
@@ -211,6 +232,8 @@
             return children;
         },
 
+        // Sets the attribute given on the selected DOM element(s), or simply
+        // returns the current value(s) if no value provided.
         attr(selector, attribute, value = null) {
             let attr = [];
 
@@ -227,6 +250,8 @@
             }
         },
 
+        // Sets the value given on the selected DOM element(s), or simply
+        // returns the current value(s) if no value provided.
         val(selector, value = null) {
             let val = [];
 
@@ -243,6 +268,8 @@
             }
         },
 
+        // Sets the text given on the selected DOM element(s), or simply
+        // returns the current value(s) if no value provided.
         text(selector, value = null) {
             let text = [];
 
@@ -263,6 +290,9 @@
             }
         },
 
+        // Iterates over the selected DOM element(s) and executes the callback
+        // function provided for each element. The callback will be provided
+        // with the current element and the index.
         each(selector, closure) {
             var elements = this.find(selector);
 
@@ -271,6 +301,7 @@
             }
         },
 
+        // Executes the given callback when the document is ready.
         documentReady(closure) {
             if (document.readyState != 'loading'){
                 closure();
@@ -285,10 +316,20 @@
             }
         },
 
+        // Return the array as-is, or if it only contains one value,
+        // simply return the first value instead.
         _allOrFirstInArray(list) {
             return list.length > 1
                 ? list
                 : list[0];
+        },
+
+        // Checks if the given object is a NodeList.
+        _isNodeList(object) {
+            return (
+                typeof object.length != 'undefined'
+                && typeof object.item != 'undefined'
+            );
         },
     }
 }));
