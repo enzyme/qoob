@@ -19,7 +19,7 @@
                 return null;
             }
 
-            if (selector.length > 1 || true === this.isNodeList(selector)) {
+            if (selector.constructor === Array || true === this.isNodeList(selector)) {
                 return selector;
             }
 
