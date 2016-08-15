@@ -63,7 +63,21 @@
         },
 
         html(selector, content = null) {
-            // TODO: Implement.
+            let html = '';
+
+            this.each(selector, function(element, _) {
+                if (content === null) {
+                    html = html + element.innerHTML;
+                } else {
+                    element.innerHTML = content;
+                }
+            });
+
+            if (content === null) {
+                return html;
+            }
+
+            return content;
         },
 
         css(selector, properties = {}) {
