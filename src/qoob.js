@@ -203,8 +203,24 @@
             }
         },
 
-        text(selector) {
-            // TODO: Implement.
+        text(selector, value = null) {
+            let text = [];
+
+            this.each(selector, function(element, _) {
+                if (value === null) {
+                    text.unshift((element.textContent || element.innerText));
+                } else {
+                    if (el.textContent !== undefined) {
+                        element.textContent = value;
+                    } else {
+                        element.innerText = value;
+                    }
+                }
+            });
+
+            if (value === null) {
+                return this._allOrFirstInArray(text);
+            }
         },
 
         each(selector, closure) {
