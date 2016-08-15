@@ -50,7 +50,27 @@
         },
 
         fadeIn(selector) {
-            // TODO: Implement.
+            this.each(selector, function(element, _) {
+                var opacity = 0;
+                var last = +new Date();
+
+                element.style.opacity = 0;
+                element.style.filter = '';
+
+                var tick = function() {
+                    opacity += (new Date() - last) / 400;
+                    element.style.opacity = opacity;
+                    element.style.filter = 'alpha(opacity=' + (100 * opacity) | 0 + ')';
+
+                    last = +new Date();
+
+                    if (opacity < 1) {
+                        (window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16);
+                    }
+                };
+
+                tick();
+            });
         },
 
         fadeOut(selector) {
