@@ -16,11 +16,10 @@
 
         find(selector) {
             if (selector === null) {
-                return selector;
+                return null;
             }
 
-            if (typeof selector === 'object'
-                && selector.constructor === Array) {
+            if (typeof selector === 'object' && selector.length > 1) {
                 return selector;
             }
 
