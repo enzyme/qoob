@@ -50,62 +50,6 @@
             });
         },
 
-        // Fade the selected DOM element(s) in. This function only
-        // animates opacity.
-        fadeIn(selector, closure = null) {
-            this.each(selector, function(element, _) {
-                var opacity = 0;
-                var last = +new Date();
-
-                element.style.opacity = 0;
-                element.style.filter = '';
-
-                var tick = function() {
-                    opacity += (new Date() - last) / 400;
-                    element.style.opacity = opacity;
-                    element.style.filter = 'alpha(opacity=' + (100 * opacity) | 0 + ')';
-
-                    last = +new Date();
-
-                    if (opacity < 1) {
-                        (window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16);
-                    } else if (closure !== null) {
-                        closure(element);
-                    }
-                };
-
-                tick();
-            });
-        },
-
-        // Fade the selected DOM element(s) out. This function only
-        // animates opacity.
-        fadeOut(selector, closure = null) {
-            this.each(selector, function(element, _) {
-                var opacity = 1;
-                var last = +new Date();
-
-                element.style.opacity = 1;
-                element.style.filter = '';
-
-                var tick = function() {
-                    opacity -= (new Date() - last) / 400;
-                    element.style.opacity = opacity;
-                    element.style.filter = 'alpha(opacity=' + (100 * opacity) | 0 + ')';
-
-                    last = +new Date();
-
-                    if (opacity > 0) {
-                        (window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16);
-                    } else if (closure !== null) {
-                        closure(element);
-                    }
-                };
-
-                tick();
-            });
-        },
-
         // Hide the selected DOM element(s) - the same as setting display: none.
         hide(selector) {
             this.each(selector, function(element, _) {
