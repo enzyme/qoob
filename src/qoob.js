@@ -186,7 +186,21 @@
         },
 
         val(selector, value = null) {
-            // TODO: Implement.
+            let val = [];
+
+            this.each(selector, function(element, _) {
+                if (value === null) {
+                    let val_value = element.value;
+
+                    val.unshift((val_value !== '' ? val_value : null));
+                } else {
+                    element.value = value;
+                }
+            });
+
+            if (value === null) {
+                return this._allOrFirstInArray(val);
+            }
         },
 
         text(selector) {
