@@ -81,12 +81,8 @@
             });
 
             if (content === null) {
-                return html.length > 1
-                    ? html
-                    : html[0];
+                return this._allOrFirstInArray(html);
             }
-
-            return content;
         },
 
         css(selector, properties = {}) {
@@ -203,6 +199,12 @@
                     }
                 });
             }
+        },
+
+        _allOrFirstInArray(list) {
+            return list.length > 1
+                ? list
+                : list[0];
         },
     }
 }));
