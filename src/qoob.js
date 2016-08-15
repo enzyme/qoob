@@ -176,6 +176,36 @@
             return children;
         },
 
+        // Get the direct parent(s) of the selected DOM element(s).
+        parent(selector) {
+            let parents = [];
+
+            this.each(selector, function(element, _) {
+                parents.unshift(element.parentNode);
+            });
+
+            return this._allOrFirstInArray(parents);
+        },
+
+        // Get the sibling(s) of the selected DOM element(s).
+        siblings(selector) {
+            let list = [];
+
+            this.each(selector, function(element, _) {
+                let siblings = Array.prototype.slice.call(
+                    element.parentNode.children
+                );
+
+                this.each(siblings, function(sibling_element, _) {
+                    if (element !== sibling_element) {
+                        list.unshift(sibling_element);
+                    }
+                });
+            });
+
+            return list;
+        },
+
         // Sets the attribute given on the selected DOM element(s), or simply
         // returns the current value(s) if no value provided.
         attr(selector, attribute, value = null) {
