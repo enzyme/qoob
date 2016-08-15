@@ -49,7 +49,7 @@
             });
         },
 
-        fadeIn(selector) {
+        fadeIn(selector, closure = null) {
             this.each(selector, function(element, _) {
                 var opacity = 0;
                 var last = +new Date();
@@ -66,6 +66,8 @@
 
                     if (opacity < 1) {
                         (window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16);
+                    } else if (closure !== null) {
+                        closure();
                     }
                 };
 
@@ -73,7 +75,7 @@
             });
         },
 
-        fadeOut(selector) {
+        fadeOut(selector, closure = null) {
             this.each(selector, function(element, _) {
                 var opacity = 1;
                 var last = +new Date();
@@ -90,6 +92,8 @@
 
                     if (opacity > 0) {
                         (window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16);
+                    } else if (closure !== null) {
+                        closure();
                     }
                 };
 
