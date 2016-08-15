@@ -140,16 +140,17 @@
 
         children(selector, child_selector = null) {
             let children = [];
+            let self = this;
 
             this.each(selector, function(element, _) {
                 if (child_selector !== null) {
                     let child_elements = element.querySelectorAll(child_selector);
 
-                    this.each(child_elements, function(child_element, _) {
+                    self.each(child_elements, function(child_element, _) {
                         children.unshift(child_element);
                     });
                 } else {
-                    this.each(element.children, function(child_element, _) {
+                    self.each(element.children, function(child_element, _) {
                         // Skip comment nodes on IE8
                         if (el.children[i].nodeType != 8) {
                             children.unshift(child_element);
