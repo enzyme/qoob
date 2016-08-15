@@ -15,7 +15,16 @@
         },
 
         find(selector) {
-            if (selector !== null && typeof selector === 'object') {
+            if (selector === null) {
+                return selector;
+            }
+
+            if (typeof selector === 'object'
+                && selector.constructor === Array) {
+                return selector;
+            }
+
+            if (typeof selector === 'object') {
                 return [selector];
             }
 
