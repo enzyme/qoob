@@ -70,18 +70,20 @@
         },
 
         html(selector, content = null) {
-            let html = '';
+            let html = [];
 
             this.each(selector, function(element, _) {
                 if (content === null) {
-                    html = html + element.innerHTML;
+                    html.unshift(element.innerHTML);
                 } else {
                     element.innerHTML = content;
                 }
             });
 
             if (content === null) {
-                return html;
+                return html.length > 1
+                    ? html
+                    : html[0];
             }
 
             return content;
