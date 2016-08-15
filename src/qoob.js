@@ -19,7 +19,7 @@
                 return null;
             }
 
-            if (typeof selector === 'object' && selector.length > 1) {
+            if (true === this.isNodeList(selector)) {
                 return selector;
             }
 
@@ -28,6 +28,13 @@
             }
 
             return document.querySelectorAll(selector);
+        },
+
+        isNodeList(object) {
+            return (
+                typeof object.length != 'undefined'
+                && typeof object.item != 'undefined'
+            );
         },
 
         on(selector, event, closure) {
