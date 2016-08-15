@@ -104,7 +104,25 @@
         },
 
         hasClass(selector, class_name) {
-            // TODO: Implement.
+            let elements = this.first(selector);
+            let truth = false;
+
+            this.each(elements, function(element, _) {
+                if (el.classList) {
+                    truth = el.classList.contains(className) === true
+                        ? true
+                        : truth;
+                } else {
+                    truth = (
+                        new RegExp('(^| )' + className + '( |$)', 'gi')
+                            .test(el.className)
+                    ) === true
+                        ? true
+                        : truth;
+                }
+            });
+
+            return truth;
         },
 
         children(selector, child_selector = null) {
