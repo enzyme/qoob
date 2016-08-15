@@ -104,18 +104,17 @@
         },
 
         hasClass(selector, class_name) {
-            let elements = this.first(selector);
             let truth = false;
 
-            this.each(elements, function(element, _) {
-                if (el.classList) {
-                    truth = el.classList.contains(className) === true
+            this.each(selector, function(element, _) {
+                if (element.classList) {
+                    truth = element.classList.contains(class_name) === true
                         ? true
                         : truth;
                 } else {
                     truth = (
-                        new RegExp('(^| )' + className + '( |$)', 'gi')
-                            .test(el.className)
+                        new RegExp('(^| )' + class_name + '( |$)', 'gi')
+                            .test(element.className)
                     ) === true
                         ? true
                         : truth;
