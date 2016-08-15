@@ -1,6 +1,6 @@
 {
   "name": "qoob",
-  "version": "0.0.26",
+  "version": "0.0.27",
   "description": "A lightweight DOM manipulation library for common tasks.",
   "main": "dist/qoob.js",
   "scripts": {
