@@ -12,14 +12,11 @@ gulp.task("build", function (cb) {
 });
 
 gulp.task('compress', ['build'], function (cb) {
-    pump(
-        [
-            gulp.src('build/*.js'),
-            uglify(),
-            gulp.dest('dist')
-        ],
-        cb
-    );
+    pump([
+        gulp.src('build/*.js'),
+        uglify(),
+        gulp.dest('dist')
+    ], cb);
 });
 
 gulp.task('default', ['build', 'compress']);
