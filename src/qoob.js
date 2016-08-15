@@ -67,7 +67,7 @@
                     if (opacity < 1) {
                         (window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16);
                     } else if (closure !== null) {
-                        closure();
+                        closure(element);
                     }
                 };
 
@@ -93,7 +93,7 @@
                     if (opacity > 0) {
                         (window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16);
                     } else if (closure !== null) {
-                        closure();
+                        closure(element);
                     }
                 };
 
