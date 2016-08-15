@@ -172,9 +172,9 @@
 
             this.each(selector, function(element, _) {
                 if (value === null) {
-                    let value = element.getAttribute(attribute);
+                    let attr_value = element.getAttribute(attribute);
 
-                    attr.unshift((value !== '' ? value : null));
+                    attr.unshift((attr_value !== '' ? attr_value : null));
                 } else {
                     element.setAttribute(attribute, value);
                 }
