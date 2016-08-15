@@ -139,7 +139,26 @@
         },
 
         children(selector, child_selector = null) {
-            // TODO: Implement.
+            let children = [];
+
+            this.each(selector, function(element, _) {
+                if (child_selector !== null) {
+                    let child_elements = element.querySelectorAll(child_selector);
+
+                    this.each(child_elements, function(child_element, _) {
+                        children.unshift(child_element);
+                    });
+                } else {
+                    this.each(element.children, function(child_element, _) {
+                        // Skip comment nodes on IE8
+                        if (el.children[i].nodeType != 8) {
+                            children.unshift(child_element);
+                        }
+                    });
+                }
+            });
+
+            return children;
         },
 
         attr(selector, attribute, value = null) {
