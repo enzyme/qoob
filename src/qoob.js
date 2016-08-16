@@ -187,6 +187,43 @@
         },
 
         /**
+         * Whether the element(s) matching the selector have the
+         * given class applied.
+         * @param  {mixed} selector
+         * @param  {string} class_name
+         * @return {Boolean}
+         */
+        is(selector, class_name) {
+            let truth = false;
+            let self = this;
+
+            this.each(selector, function(element, _) {
+                let matches_fn = (
+                    element.matches
+                    || element.matchesSelector
+                    || element.msMatchesSelector
+                    || element.mozMatchesSelector
+                    || element.webkitMatchesSelector
+                    || element.oMatchesSelector
+                );
+
+                if (matches_fn) {
+                    truth = matches_fn.call(element, class_name) ? true : truth;
+                } else {
+                    let nodes = this.find(class_name);
+
+                    self.each(nodes, function(node, _) {
+                        if (node === element) {
+                            truth = true;
+                        }
+                    });
+                }
+            });
+
+            return truth;
+        },
+
+        /**
          * Get an array of children for the element(s) matching the selector.
          * @param  {mixed} selector
          * @param  {string} [child_selector=null]
