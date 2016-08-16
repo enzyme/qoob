@@ -78,7 +78,7 @@
             });
 
             if (content === null) {
-                return this._allOrFirstInArray(html);
+                return html;
             }
         },
 
@@ -220,7 +220,7 @@
             });
 
             if (value === null) {
-                return this._allOrFirstInArray(attr);
+                return attr;
             }
         },
 
@@ -238,7 +238,7 @@
             });
 
             if (value === null) {
-                return this._allOrFirstInArray(val);
+                return val;
             }
         },
 
@@ -260,7 +260,7 @@
             });
 
             if (value === null) {
-                return this._allOrFirstInArray(text);
+                return text;
             }
         },
 
