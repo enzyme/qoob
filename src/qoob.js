@@ -224,6 +224,40 @@
         },
 
         /**
+         * Append the child element given to the element(s)
+         * matching the selector.
+         * @param {mixed} selector
+         * @param {object} child_element
+         */
+        append(selector, child_element) {
+            this.each(selector, function(element, _) {
+                element.appendChild(child_element);
+            });
+        },
+
+        /**
+         * Prepend the child element given to the element(s)
+         * matching the selector.
+         * @param {mixed} selector
+         * @param {object} child_element
+         */
+        prepend(selector, child_element) {
+            this.each(selector, function(element, _) {
+                element.insertBefore(child_element, element.firstChild);
+            });
+        },
+
+        /**
+         * Remove the element(s) from the DOM.
+         * @param {mixed} selector
+         */
+        remove(selector) {
+            this.each(selector, function(element, _) {
+                element.parentNode.removeChild(element);
+            });
+        },
+
+        /**
          * Get an array of children for the element(s) matching the selector.
          * @param  {mixed} selector
          * @param  {string} [child_selector=null]
