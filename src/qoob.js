@@ -186,6 +186,42 @@
 
             return parents;
         },
+
+        // Find parent/ancestor element(s) matching the ancestor_selector of
+        // the selected DOM element(s).
+        ancestor(selector, ancestor_selector) {
+            let ancestors = this.find(ancestor_selector);
+            let list = [];
+            let self = this;
+
+            let finder = function(parent, list) {
+                let node = null;
+
+                self.each(list, function(el, _) {
+                    if (node === null && el === parent) {
+                        node = el;
+                    }
+                });
+
+                return node;
+            };
+
+            this.each(selector, function(element, _) {
+                let cur_node = element.parentNode;
+
+                while(cur_node !== null) {
+                    let result = finder(cur_node, ancestors);
+
+                    if (result !== null) {
+                        list.unshift(result);
+                        break;
+                    }
+
+                    cur_node = cur_node.parentNode;
+                }
+            });
+
+            return this._uniques(list);
         },
 
         // Get the sibling(s) of the selected DOM element(s).
