@@ -227,13 +227,14 @@
         // Get the sibling(s) of the selected DOM element(s).
         siblings(selector) {
             let list = [];
+            let self = this;
 
             this.each(selector, function(element, _) {
                 let siblings = Array.prototype.slice.call(
                     element.parentNode.children
                 );
 
-                this.each(siblings, function(sibling_element, _) {
+                self.each(siblings, function(sibling_element, _) {
                     if (element !== sibling_element) {
                         list.unshift(sibling_element);
                     }
