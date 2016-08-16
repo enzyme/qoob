@@ -291,12 +291,24 @@
             }
         },
 
-        // Return the array as-is, or if it only contains one value,
-        // simply return the first value instead.
-        _allOrFirstInArray(list) {
-            return list.length > 1
-                ? list
-                : list[0];
+        // Return only the first value from the provided array, if the array
+        // is empty, return null instead.
+        single(list) {
+            return list.length > 0
+                ? list[0]
+                : null;
+        },
+
+        prop(name) {
+            return function(element) {
+                return element[name];
+            }
+        },
+
+        func(name) {
+            return function(element) {
+                return element[name]();
+            }
         },
 
         // Checks if the given object is a NodeList.
@@ -305,6 +317,12 @@
                 typeof object.length != 'undefined'
                 && typeof object.item != 'undefined'
             );
+        },
+
+        _uniques(list) {
+            return list.filter(function(value, index, self) {
+                return self.indexOf(value) === index;
+            });
         },
     }
 }));
