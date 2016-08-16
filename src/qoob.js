@@ -184,7 +184,8 @@
                 parents.unshift(element.parentNode);
             });
 
-            return this._allOrFirstInArray(parents);
+            return parents;
+        },
         },
 
         // Get the sibling(s) of the selected DOM element(s).
