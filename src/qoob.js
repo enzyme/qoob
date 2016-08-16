@@ -4,8 +4,11 @@
     else window[name] = definition();
 }('Qoob', function() {
     return {
-        // Find and return the first element in the DOM matching the given
-        // selector, otherwise return null.
+        /**
+         * Get the first element matching the given selector.
+         * @param  {string} selector
+         * @return {mixed}
+         */
         first(selector) {
             let elements = this.find(selector);
 
@@ -16,16 +19,20 @@
             return null;
         },
 
-        // Find and return an array of all elements in the DOM matching the
-        // given selector. If an array or NodeList is given, simply return
-        // the argument. If a single object is given, return the object
-        // in a single element array.
+        /**
+         * Find and return any element(s) matching the given selector. If the
+         * selector is an array or NodeList, simply return it as is. If the
+         * selector is a single object, return it as an array with 1 element.
+         * @param  {mixed} selector
+         * @return {mixed}
+         */
         find(selector) {
             if (selector === null) {
                 return null;
             }
 
-            if (selector.constructor === Array || true === this._isNodeList(selector)) {
+            if (selector.constructor === Array
+                || true === this._isNodeList(selector)) {
                 return selector;
             }
 
@@ -36,8 +43,13 @@
             return document.querySelectorAll(selector);
         },
 
-        // Fire a callback when the specified event is fired on the provided DOM
-        // element(s). The callback will be provided with the event object.
+        /**
+         * Fire a callback on any element(s) matching the selector when the
+         * specified event type occurs.
+         * @param {mixed} selector
+         * @param {string} event
+         * @param {function} closure
+         */
         on(selector, event, closure) {
             this.each(selector, function(element, _) {
                 if (element.addEventListener) {
@@ -50,22 +62,33 @@
             });
         },
 
-        // Hide the selected DOM element(s) - the same as setting display: none.
+        /**
+         * Hide the element(s) matching the selector.
+         * @param {mixed} selector
+         */
         hide(selector) {
             this.each(selector, function(element, _) {
                 element.style.display = 'none';
             });
         },
 
-        // Hide the selected DOM element(s) - the same as setting display: auto
-        // , or whatever is provided as the prefered display type.
+        /**
+         * Show the element(s) matching the selector.
+         * @param {mixed} selector
+         * @param {String} [preferred_display='']
+         */
         show(selector, preferred_display = '') {
             this.each(selector, function(element, _) {
                 element.style.display = preferred_display;
             });
         },
 
-        // Gets or sets the HTML content on the selected DOM element(s).
+        /**
+         * Gets or sets the html content on the element(s) matching the selector.
+         * @param  {mixed} selector
+         * @param  {mixed} [content=null]
+         * @return {mixed}
+         */
         html(selector, content = null) {
             let html = [];
 
@@ -82,12 +105,11 @@
             }
         },
 
-        // Sets the given CSS properties on the selected DOM element(s). The CSS
-        // properties should be provided as an object, eg:
-        // {
-        //      color: 'green',
-        //      fontSize: '18px',
-        // }
+        /**
+         * Set the css on the element(s) matching the selector.
+         * @param {mixed} selector
+         * @param {Object} [properties={}]
+         */
         css(selector, properties = {}) {
             this.each(selector, function(element, _) {
                 for(var property in properties) {
@@ -96,7 +118,11 @@
             });
         },
 
-        // Adds the given class to the selected DOM element(s).
+        /**
+         * Add the given class to the element(s) matching the selector.
+         * @param {mixed} selector
+         * @param {string} class_name
+         */
         addClass(selector, class_name) {
             this.each(selector, function(element, _) {
                 if (element.classList) {
@@ -107,7 +133,11 @@
             });
         },
 
-        // Removes the given class on the selected DOM element(s).
+        /**
+         * Remove the given class from the element(s) matching the selector.
+         * @param {mixed} selector
+         * @param {string} class_name
+         */
         removeClass(selector, class_name) {
             this.each(selector, function(element, _) {
                 if (element.classList) {
@@ -127,8 +157,14 @@
             });
         },
 
-        // Returns true if any of the selected DOM element(s) have the given
-        // class attached to themselves.
+        /**
+         * Checks whether the given class exists on the element(s) matching the
+         * selector. This will still return true if multiple elements are
+         * matched and any one of them has the class applied.
+         * @param  {mixed} selector
+         * @param  {string} class_name
+         * @return {Boolean}
+         */
         hasClass(selector, class_name) {
             let truth = false;
 
@@ -150,8 +186,12 @@
             return truth;
         },
 
-        // Returns all the children for the selected DOM element(s), or only
-        // the children match the provided selector.
+        /**
+         * Get an array of children for the element(s) matching the selector.
+         * @param  {mixed} selector
+         * @param  {string} [child_selector=null]
+         * @return {array}
+         */
         children(selector, child_selector = null) {
             let children = [];
             let self = this;
@@ -176,7 +216,11 @@
             return children;
         },
 
-        // Get the direct parent(s) of the selected DOM element(s).
+        /**
+         * Get an array of parents for the element(s) matching the selector.
+         * @param  {mixed} selector
+         * @return {array}
+         */
         parent(selector) {
             let parents = [];
 
@@ -187,8 +231,13 @@
             return parents;
         },
 
-        // Find parent/ancestor element(s) matching the ancestor_selector of
-        // the selected DOM element(s).
+        /**
+         * Get an array of ancestors matching the ancestor_selector for the
+         * element(s) matching the selector.
+         * @param  {mixed} selector
+         * @param  {string} ancestor_selector
+         * @return {array}
+         */
         ancestor(selector, ancestor_selector) {
             let ancestors = this.find(ancestor_selector);
             let list = [];
@@ -224,7 +273,11 @@
             return this._uniques(list);
         },
 
-        // Get the sibling(s) of the selected DOM element(s).
+        /**
+         * Get an array of siblings for the element(s) matching the selector.
+         * @param  {mixed} selector
+         * @return {array}
+         */
         siblings(selector) {
             let list = [];
             let self = this;
@@ -244,8 +297,13 @@
             return list;
         },
 
-        // Sets the attribute given on the selected DOM element(s), or simply
-        // returns the current value(s) if no value provided.
+        /**
+         * Get or set the given attribute for the element(s) matching the selector.
+         * @param  {mixed} selector
+         * @param  {string} attribute
+         * @param  {mixed} [value=null]
+         * @return {mixed}
+         */
         attr(selector, attribute, value = null) {
             let attr = [];
 
@@ -262,8 +320,12 @@
             }
         },
 
-        // Sets the value given on the selected DOM element(s), or simply
-        // returns the current value(s) if no value provided.
+        /**
+         * Get or set the value for the element(s) matching the selector.
+         * @param  {mixed} selector
+         * @param  {mixed} [value=null]
+         * @return {mixed}
+         */
         val(selector, value = null) {
             let val = [];
 
@@ -280,8 +342,12 @@
             }
         },
 
-        // Sets the text given on the selected DOM element(s), or simply
-        // returns the current value(s) if no value provided.
+        /**
+         * Get or set the text for the element(s) matching the selector.
+         * @param  {mixed} selector
+         * @param  {mixed} [value=null]
+         * @return {mixed}
+         */
         text(selector, value = null) {
             let text = [];
 
@@ -302,9 +368,12 @@
             }
         },
 
-        // Iterates over the selected DOM element(s) and executes the callback
-        // function provided for each element. The callback will be provided
-        // with the current element and the index.
+        /**
+         * Execute the given callback function for each element in the
+         * list provided.
+         * @param {mixed} selector
+         * @param {function} closure Will be passed element and index arguments.
+         */
         each(selector, closure) {
             var elements = this.find(selector);
 
@@ -313,7 +382,10 @@
             }
         },
 
-        // Executes the given callback when the document is ready.
+        /**
+         * Executes the given callback function with the document is ready.
+         * @param {function} closure
+         */
         documentReady(closure) {
             if (document.readyState != 'loading'){
                 closure();
@@ -328,27 +400,47 @@
             }
         },
 
-        // Return only the first value from the provided array, if the array
-        // is empty, return null instead.
+        /**
+         * Returns the first value in the array provided, otherwise returns null
+         * if the array is empty.
+         * @param  {array} list
+         * @return {mixed}
+         */
         single(list) {
             return list.length > 0
                 ? list[0]
                 : null;
         },
 
+        /**
+         * Returns a function that takes an object as an argument and returns
+         * the given property value on it.
+         * @param  {string} name The property name,
+         * @return {function}
+         */
         prop(name) {
             return function(element) {
                 return element[name];
             }
         },
 
+        /**
+         * Returns a function that takes an object as an argument and returns
+         * the value returned by calling the provided function on it.
+         * @param  {string} name The name of the function to call.
+         * @return {function}
+         */
         func(name) {
             return function(element) {
                 return element[name]();
             }
         },
 
-        // Checks if the given object is a NodeList.
+        /**
+         * Whether the given object is a NodeList.
+         * @param  {object} object
+         * @return {Boolean}
+         */
         _isNodeList(object) {
             return (
                 typeof object.length != 'undefined'
@@ -356,6 +448,11 @@
             );
         },
 
+        /**
+         * Returns a new array with only unique values (duplicates removed).
+         * @param  {array} list
+         * @return {array}
+         */
         _uniques(list) {
             return list.filter(function(value, index, self) {
                 return self.indexOf(value) === index;
