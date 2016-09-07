@@ -75,9 +75,9 @@
         /**
          * Show the element(s) matching the selector.
          * @param {mixed} selector
-         * @param {String} [preferred_display='']
+         * @param {String} [preferred_display='block']
          */
-        show(selector, preferred_display = '') {
+        show(selector, preferred_display = 'block') {
             this.each(selector, function(element, _) {
                 element.style.display = preferred_display;
             });
