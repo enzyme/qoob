@@ -68,6 +68,7 @@ https://cdn.rawgit.com/enzyme/qoob/master/dist/qoob.js
 | attr | selector, attribute, value = null | Get or set the given attribute for the element(s) matching the selector. |
 | children | selector, child_selector = null | Get an array of children for the element(s) matching the selector. |
 | css | selector, properties = {} | Set the css on the element(s) matching the selector. |
+| data | Gets or sets the data attributes on the element(s) matching the selector. |
 | documentReady | closure | Executes the given callback function with the document is ready. |
 | each | selector, closure | Execute the given callback function for each element in the list provided. |
 | find | selector | Find and return any element(s) matching the given selector. If the selector is an array or NodeList, simply return it as is. If the selector is a single object, return it as an array with 1 element. |
@@ -85,8 +86,9 @@ https://cdn.rawgit.com/enzyme/qoob/master/dist/qoob.js
 | removeClass | selector, class_name | Remove the given class from the element(s) matching the selector. |
 | show | selector, preferred_display = 'block' | Show the element(s) matching the selector. |
 | siblings | selector | Get an array of siblings for the element(s) matching the selector. |
-| single | list | Returns the first value in the array provided, otherwise returns null if the array is empty. |
+| strip | list | Returns the first value in the array provided, otherwise returns null if the array is empty. |
 | text | selector, value = null | Get or set the text for the element(s) matching the selector. |
+| toggle | Toggle the visibility of the element(s) matching the selector. |
 | val | selector, value = null | Get or set the value for the element(s) matching the selector. |
 
 ## License
