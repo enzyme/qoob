@@ -84,6 +84,55 @@
         },
 
         /**
+         * Toggle the visibility of the element(s) matching the selector.
+         * @param {mixed} selector
+         * @param {String} [preferred_display='block']
+         */
+        toggle(selector, preferred_display = 'block') {
+            let self = this;
+
+            this.each(selector, function(element, _) {
+                if ('none' === element.style.display) {
+                    self.show(element, preferred_display);
+                } else {
+                    self.hide(element);
+                }
+            });
+        },
+
+        /**
+         * Gets or sets the data attributes on the element(s) matching the selector.
+         * @param  {mixed} selector
+         * @param  {String} name
+         * @param  {String} [content=null]
+         * @return {mixed}
+         */
+        data(selector, name, content = null) {
+            let data = [];
+            let self = this;
+
+            this.each(selector, function(element, _) {
+                if (content === null) {
+                    if (element.dataset) {
+                        data.unshift(element.dataset[self._camelize(name)]);
+                    } else {
+                        data.unshift(element.getAttribute('data-' + name));
+                    }
+                } else {
+                    if (element.dataset) {
+                        element.dataset[self._camelize(name)] = content;
+                    } else {
+                        element.setAttribute('data-' + name, content);
+                    }
+                }
+            });
+
+            if (content === null) {
+                return data;
+            }
+        },
+
+        /**
          * Gets or sets the html content on the element(s) matching the selector.
          * @param  {mixed} selector
          * @param  {mixed} [content=null]
@@ -527,6 +576,17 @@
         _uniques(list) {
             return list.filter(function(value, index, self) {
                 return self.indexOf(value) === index;
+            });
+        },
+
+        /**
+         * Returns a camel cased string from a slug cased string.
+         * @param  {string} str
+         * @return {string}
+         */
+        _camelize(str) {
+            return str.replace(/-([a-z])/g, function (m, w) {
+                return w.toUpperCase();
             });
         },
     }
