@@ -526,7 +526,7 @@
          * @param  {array} list
          * @return {mixed}
          */
-        single(list) {
+        strip(list) {
             return list.length > 0
                 ? list[0]
                 : null;
