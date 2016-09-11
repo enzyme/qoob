@@ -1,6 +1,6 @@
-# Qoob (/kjuːb/)
-
-A lightweight DOM manipulation library for common tasks.
+<p align="center"><img src="https://cloud.githubusercontent.com/assets/2805249/18409938/3bc3fa0e-7798-11e6-81e4-c7e8e69bf90c.jpg" alt="Qoob logo"></p>
+<h1 align="center">Qoob (/kjuːb/)</h1>
+<p align="center">A lightweight DOM manipulation library.</p>
 
 ## Examples
 
