@@ -53,9 +53,14 @@ $ npm install --save qoob
 $ bower install qoob
 ```
 
-### Direct link
+### CDN
+#### Development
 ```
 https://cdn.rawgit.com/enzyme/qoob/master/dist/qoob.js
+```
+#### Production
+```
+https://cdn.rawgit.com/enzyme/qoob/master/dist/qoob.min.js
 ```
 
 ## Function reference
