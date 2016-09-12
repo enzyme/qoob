@@ -1,3 +1,4 @@
+import { html } from './content.js';
 import { isNodeList, each } from './utils.js';
 
 /**
@@ -56,4 +57,21 @@ export function remove(selector) {
     each(selector, (element, _) => {
         element.parentNode.removeChild(element);
     });
+}
+
+/**
+ * Create a new html element of the specified type and optionally
+ * fill it with the given html.
+ * @param  {string} type
+ * @param  {string} [inner_html=null]
+ * @return {element}
+ */
+export function make(type, inner_html = null) {
+    let element = document.createElement(type);
+
+    if (null !== inner_html) {
+        html(element, inner_html);
+    }
+
+    return element;
 }
