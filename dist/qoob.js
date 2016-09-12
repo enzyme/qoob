@@ -98,6 +98,58 @@ function first(selector) {
     return null;
 }
 
+/**
+ * Gets or sets the html content on the element(s) matching the selector.
+ * @param  {mixed} selector
+ * @param  {mixed} [content=null]
+ * @return {mixed}
+ */
+function html(selector) {
+    var content = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
+
+    var html = [];
+
+    each(selector, function (element, _) {
+        if (content === null) {
+            html.unshift(element.innerHTML);
+        } else {
+            element.innerHTML = content;
+        }
+    });
+
+    if (content === null) {
+        return html;
+    }
+}
+
+/**
+ * Get or set the text for the element(s) matching the selector.
+ * @param  {mixed} selector
+ * @param  {mixed} [value=null]
+ * @return {mixed}
+ */
+function text(selector) {
+    var value = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
+
+    var text = [];
+
+    each(selector, function (element, _) {
+        if (value === null) {
+            text.unshift(element.textContent || element.innerText);
+        } else {
+            if (element.textContent !== undefined) {
+                element.textContent = value;
+            } else {
+                element.innerText = value;
+            }
+        }
+    });
+
+    if (value === null) {
+        return text;
+    }
+}
+
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 
 /**
@@ -155,6 +207,25 @@ function remove(selector) {
     each(selector, function (element, _) {
         element.parentNode.removeChild(element);
     });
+}
+
+/**
+ * Create a new html element of the specified type and optionally
+ * fill it with the given html.
+ * @param  {string} type
+ * @param  {string} [inner_html=null]
+ * @return {element}
+ */
+function make(type) {
+    var inner_html = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
+
+    var element = document.createElement(type);
+
+    if (null !== inner_html) {
+        html(element, inner_html);
+    }
+
+    return element;
 }
 
 /**
@@ -237,58 +308,6 @@ function is(selector, class_name) {
     });
 
     return truth;
-}
-
-/**
- * Gets or sets the html content on the element(s) matching the selector.
- * @param  {mixed} selector
- * @param  {mixed} [content=null]
- * @return {mixed}
- */
-function html(selector) {
-    var content = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
-
-    var html = [];
-
-    each(selector, function (element, _) {
-        if (content === null) {
-            html.unshift(element.innerHTML);
-        } else {
-            element.innerHTML = content;
-        }
-    });
-
-    if (content === null) {
-        return html;
-    }
-}
-
-/**
- * Get or set the text for the element(s) matching the selector.
- * @param  {mixed} selector
- * @param  {mixed} [value=null]
- * @return {mixed}
- */
-function text(selector) {
-    var value = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
-
-    var text = [];
-
-    each(selector, function (element, _) {
-        if (value === null) {
-            text.unshift(element.textContent || element.innerText);
-        } else {
-            if (element.textContent !== undefined) {
-                element.textContent = value;
-            } else {
-                element.innerText = value;
-            }
-        }
-    });
-
-    if (value === null) {
-        return text;
-    }
 }
 
 /**
@@ -599,6 +618,7 @@ var qoob = {
     html: html,
     is: is,
     isNodeList: isNodeList,
+    make: make,
     on: on,
     parent: parent,
     prepend: prepend,
