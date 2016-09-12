@@ -73,7 +73,7 @@ https://cdn.rawgit.com/enzyme/qoob/master/dist/qoob.min.js
 | attr | selector, attribute, value = null | Get or set the given attribute for the element(s) matching the selector. |
 | children | selector, child_selector = null | Get an array of children for the element(s) matching the selector. |
 | css | selector, properties = {} | Set the css on the element(s) matching the selector. |
-| data | Gets or sets the data attributes on the element(s) matching the selector. |
+| data | selector, name, content = null | Gets or sets the data attributes on the element(s) matching the selector. |
 | documentReady | closure | Executes the given callback function with the document is ready. |
 | each | selector, closure | Execute the given callback function for each element in the list provided. |
 | find | selector | Find and return any element(s) matching the given selector. If the selector is an array or NodeList, simply return it as is. If the selector is a single object, return it as an array with 1 element. |
