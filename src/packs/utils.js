@@ -41,12 +41,13 @@ export function camelize(str) {
  * @param {function} closure Will be passed element and index arguments.
  */
 export function each(selector, closure) {
-    var elements = find(selector);
+    let elements = find(selector);
+
     if (null === elements) {
         return;
     }
 
-    for (var i = 0; i < elements.length; i++) {
+    for (let i = 0; i < elements.length; i++) {
         closure(elements[i], i);
     }
 }

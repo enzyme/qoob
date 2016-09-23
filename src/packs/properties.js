@@ -84,7 +84,7 @@ export function data(selector, name, content = null) {
  */
 export function css(selector, properties = {}) {
     each(selector, (element, _) => {
-        for(var property in properties) {
+        for(let property in properties) {
             element.style[property] = properties[property];
         }
     });
