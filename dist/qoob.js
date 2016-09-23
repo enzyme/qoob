@@ -4,6 +4,84 @@
     (global.Qoob = factory());
 }(this, (function () { 'use strict';
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+
+/**
+ * Find and return any element(s) matching the given selector. If the
+ * selector is an array or NodeList, simply return it as is. If the
+ * selector is a single object, return it as an array with 1 element.
+ * @param  {mixed} selector
+ * @return {mixed}
+ */
+function find(selector) {
+    if (selector === null) {
+        return null;
+    }
+
+    if (selector.constructor === Array || true === isNodeList(selector)) {
+        return selector;
+    }
+
+    if ((typeof selector === 'undefined' ? 'undefined' : _typeof(selector)) === 'object') {
+        return [selector];
+    }
+
+    return document.querySelectorAll(selector);
+}
+
+/**
+ * Append the child element given to the element(s)
+ * matching the selector.
+ * @param {mixed} selector
+ * @param {object} child_element
+ */
+function append(selector, child_element) {
+    each(selector, function (element, _) {
+        element.appendChild(child_element);
+    });
+}
+
+/**
+ * Prepend the child element given to the element(s)
+ * matching the selector.
+ * @param {mixed} selector
+ * @param {object} child_element
+ */
+function prepend(selector, child_element) {
+    each(selector, function (element, _) {
+        element.insertBefore(child_element, element.firstChild);
+    });
+}
+
+/**
+ * Remove the element(s) from the DOM.
+ * @param {mixed} selector
+ */
+function remove(selector) {
+    each(selector, function (element, _) {
+        element.parentNode.removeChild(element);
+    });
+}
+
+/**
+ * Create a new html element of the specified type and optionally
+ * fill it with the given html.
+ * @param  {string} type
+ * @param  {string} [inner_html=null]
+ * @return {element}
+ */
+function make(type) {
+    var inner_html = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
+
+    var element = document.createElement(type);
+
+    if (null !== inner_html) {
+        html(element, inner_html);
+    }
+
+    return element;
+}
+
 /**
  * Whether the given object is a NodeList.
  * @param  {object} object
@@ -150,166 +228,6 @@ function text(selector) {
     }
 }
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
-
-/**
- * Find and return any element(s) matching the given selector. If the
- * selector is an array or NodeList, simply return it as is. If the
- * selector is a single object, return it as an array with 1 element.
- * @param  {mixed} selector
- * @return {mixed}
- */
-function find(selector) {
-    if (selector === null) {
-        return null;
-    }
-
-    if (selector.constructor === Array || true === isNodeList(selector)) {
-        return selector;
-    }
-
-    if ((typeof selector === 'undefined' ? 'undefined' : _typeof(selector)) === 'object') {
-        return [selector];
-    }
-
-    return document.querySelectorAll(selector);
-}
-
-/**
- * Append the child element given to the element(s)
- * matching the selector.
- * @param {mixed} selector
- * @param {object} child_element
- */
-function append(selector, child_element) {
-    each(selector, function (element, _) {
-        element.appendChild(child_element);
-    });
-}
-
-/**
- * Prepend the child element given to the element(s)
- * matching the selector.
- * @param {mixed} selector
- * @param {object} child_element
- */
-function prepend(selector, child_element) {
-    each(selector, function (element, _) {
-        element.insertBefore(child_element, element.firstChild);
-    });
-}
-
-/**
- * Remove the element(s) from the DOM.
- * @param {mixed} selector
- */
-function remove(selector) {
-    each(selector, function (element, _) {
-        element.parentNode.removeChild(element);
-    });
-}
-
-/**
- * Create a new html element of the specified type and optionally
- * fill it with the given html.
- * @param  {string} type
- * @param  {string} [inner_html=null]
- * @return {element}
- */
-function make(type) {
-    var inner_html = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
-
-    var element = document.createElement(type);
-
-    if (null !== inner_html) {
-        html(element, inner_html);
-    }
-
-    return element;
-}
-
-/**
- * Add the given class to the element(s) matching the selector.
- * @param {mixed} selector
- * @param {string} class_name
- */
-function addClass(selector, class_name) {
-    each(selector, function (element, _) {
-        if (element.classList) {
-            element.classList.add(class_name);
-        } else {
-            element.className += ' ' + class_name;
-        }
-    });
-}
-
-/**
- * Remove the given class from the element(s) matching the selector.
- * @param {mixed} selector
- * @param {string} class_name
- */
-function removeClass(selector, class_name) {
-    each(selector, function (element, _) {
-        if (element.classList) {
-            element.classList.remove(class_name);
-        } else {
-            element.className = element.className.replace(new RegExp('(^|\\b)' + class_name.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
-        }
-    });
-}
-
-/**
- * Checks whether the given class exists on the element(s) matching the
- * selector. This will still return true if multiple elements are
- * matched and any one of them has the class applied.
- * @param  {mixed} selector
- * @param  {string} class_name
- * @return {Boolean}
- */
-function hasClass(selector, class_name) {
-    var truth = false;
-
-    each(selector, function (element, _) {
-        if (element.classList) {
-            truth = element.classList.contains(class_name) === true ? true : truth;
-        } else {
-            truth = new RegExp('(^| )' + class_name + '( |$)', 'gi').test(element.className) === true ? true : truth;
-        }
-    });
-
-    return truth;
-}
-
-/**
- * Whether the element(s) matching the selector have the
- * given class applied.
- * @param  {mixed} selector
- * @param  {string} class_name
- * @return {Boolean}
- */
-function is(selector, class_name) {
-    var truth = false;
-    var self = this;
-
-    each(selector, function (element, _) {
-        var matches_fn = element.matches || element.matchesSelector || element.msMatchesSelector || element.mozMatchesSelector || element.webkitMatchesSelector || element.oMatchesSelector;
-
-        if (matches_fn) {
-            truth = matches_fn.call(element, class_name) ? true : truth;
-        } else {
-            var nodes = find(class_name);
-
-            self.each(nodes, function (node, _) {
-                if (node === element) {
-                    truth = true;
-                }
-            });
-        }
-    });
-
-    return truth;
-}
-
 /**
  * Fire a callback on any element(s) matching the selector when the
  * specified event type occurs.
@@ -345,6 +263,146 @@ function documentReady(closure) {
             }
         });
     }
+}
+
+/**
+ * Hide the element(s) matching the selector.
+ * @param {mixed} selector
+ */
+function hide(selector) {
+    each(selector, function (element, _) {
+        element.style.display = 'none';
+    });
+}
+
+/**
+ * Show the element(s) matching the selector.
+ * @param {mixed} selector
+ * @param {String} [preferred_display='block']
+ */
+function show(selector) {
+    var preferred_display = arguments.length <= 1 || arguments[1] === undefined ? 'block' : arguments[1];
+
+    each(selector, function (element, _) {
+        element.style.display = preferred_display;
+    });
+}
+
+/**
+ * Toggle the visibility of the element(s) matching the selector.
+ * @param {mixed} selector
+ * @param {String} [preferred_display='block']
+ */
+function toggle(selector) {
+    var preferred_display = arguments.length <= 1 || arguments[1] === undefined ? 'block' : arguments[1];
+
+    var self = this;
+
+    each(selector, function (element, _) {
+        if ('none' === element.style.display) {
+            show(element, preferred_display);
+        } else {
+            hide(element);
+        }
+    });
+}
+
+/**
+ * Get or set the given attribute for the element(s) matching the selector.
+ * @param  {mixed} selector
+ * @param  {string} attribute
+ * @param  {mixed} [value=null]
+ * @return {mixed}
+ */
+function attr(selector, attribute) {
+    var value = arguments.length <= 2 || arguments[2] === undefined ? null : arguments[2];
+
+    var attr = [];
+
+    each(selector, function (element, _) {
+        if (value === null) {
+            attr.unshift(element.getAttribute(attribute));
+        } else {
+            element.setAttribute(attribute, value);
+        }
+    });
+
+    if (value === null) {
+        return attr;
+    }
+}
+
+/**
+ * Get or set the value for the element(s) matching the selector.
+ * @param  {mixed} selector
+ * @param  {mixed} [value=null]
+ * @return {mixed}
+ */
+function val(selector) {
+    var value = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
+
+    var val = [];
+
+    each(selector, function (element, _) {
+        if (value === null) {
+            val.unshift(element.value);
+        } else {
+            element.value = value;
+        }
+    });
+
+    if (value === null) {
+        return val;
+    }
+}
+
+/**
+ * Gets or sets the data attributes on the element(s) matching the selector.
+ * @param  {mixed} selector
+ * @param  {String} name
+ * @param  {String} [content=null]
+ * @return {mixed}
+ */
+function data(selector, name) {
+    var content = arguments.length <= 2 || arguments[2] === undefined ? null : arguments[2];
+
+    var data = [];
+    var self = this;
+
+    each(selector, function (element, _) {
+        if (content === null) {
+            if (element.dataset) {
+                data.unshift(element.dataset[camelize(name)]);
+            } else {
+                data.unshift(element.getAttribute('data-' + name));
+            }
+        } else {
+            if (element.dataset) {
+                element.dataset[camelize(name)] = content;
+            } else {
+                element.setAttribute('data-' + name, content);
+            }
+        }
+    });
+
+    if (content === null) {
+        return data;
+    }
+}
+
+/**
+ * Set the css on the element(s) matching the selector.
+ * @param {mixed} selector
+ * @param {Object} [properties={}]
+ */
+function css(selector) {
+    var properties = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+
+    each(selector, function (element, _) {
+        for (var property in properties) {
+            element.style[property] = properties[property];
+        }
+    });
 }
 
 /**
@@ -459,148 +517,117 @@ function siblings(selector) {
 }
 
 /**
- * Get or set the given attribute for the element(s) matching the selector.
- * @param  {mixed} selector
- * @param  {string} attribute
- * @param  {mixed} [value=null]
- * @return {mixed}
+ * Add the given class to the element(s) matching the selector.
+ * @param {mixed} selector
+ * @param {string} class_name
  */
-function attr(selector, attribute) {
-    var value = arguments.length <= 2 || arguments[2] === undefined ? null : arguments[2];
-
-    var attr = [];
-
+function addClass(selector, class_name) {
     each(selector, function (element, _) {
-        if (value === null) {
-            attr.unshift(element.getAttribute(attribute));
+        if (element.classList) {
+            element.classList.add(class_name);
         } else {
-            element.setAttribute(attribute, value);
+            element.className += ' ' + class_name;
         }
     });
-
-    if (value === null) {
-        return attr;
-    }
 }
 
 /**
- * Get or set the value for the element(s) matching the selector.
- * @param  {mixed} selector
- * @param  {mixed} [value=null]
- * @return {mixed}
+ * Add the given classes to the element(s) matching the selector.
+ * @param {mixed} selector
+ * @param {array} classes
  */
-function val(selector) {
-    var value = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
-
-    var val = [];
-
+function addClasses(selector, classes) {
     each(selector, function (element, _) {
-        if (value === null) {
-            val.unshift(element.value);
-        } else {
-            element.value = value;
-        }
+        each(classes, function (class_name, __) {
+            addClass(element, class_name);
+        });
     });
-
-    if (value === null) {
-        return val;
-    }
 }
 
 /**
- * Gets or sets the data attributes on the element(s) matching the selector.
- * @param  {mixed} selector
- * @param  {String} name
- * @param  {String} [content=null]
- * @return {mixed}
+ * Remove the given class from the element(s) matching the selector.
+ * @param {mixed} selector
+ * @param {string} class_name
  */
-function data(selector, name) {
-    var content = arguments.length <= 2 || arguments[2] === undefined ? null : arguments[2];
+function removeClass(selector, class_name) {
+    each(selector, function (element, _) {
+        if (element.classList) {
+            element.classList.remove(class_name);
+        } else {
+            element.className = element.className.replace(new RegExp('(^|\\b)' + class_name.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+        }
+    });
+}
 
-    var data = [];
+/**
+ * Remove the given classes from the element(s) matching the selector.
+ * @param {mixed} selector
+ * @param {array} classes
+ */
+function removeClasses(selector, classes) {
+    each(selector, function (element, _) {
+        each(classes, function (class_name, __) {
+            removeClass(element, class_name);
+        });
+    });
+}
+
+/**
+ * Checks whether the given class exists on the element(s) matching the
+ * selector. This will still return true if multiple elements are
+ * matched and any one of them has the class applied.
+ * @param  {mixed} selector
+ * @param  {string} class_name
+ * @return {Boolean}
+ */
+function hasClass(selector, class_name) {
+    var truth = false;
+
+    each(selector, function (element, _) {
+        if (element.classList) {
+            truth = element.classList.contains(class_name) === true ? true : truth;
+        } else {
+            truth = new RegExp('(^| )' + class_name + '( |$)', 'gi').test(element.className) === true ? true : truth;
+        }
+    });
+
+    return truth;
+}
+
+/**
+ * Whether the element(s) matching the selector have the
+ * given class applied.
+ * @param  {mixed} selector
+ * @param  {string} class_name
+ * @return {Boolean}
+ */
+function is(selector, class_name) {
+    var truth = false;
     var self = this;
 
     each(selector, function (element, _) {
-        if (content === null) {
-            if (element.dataset) {
-                data.unshift(element.dataset[camelize(name)]);
-            } else {
-                data.unshift(element.getAttribute('data-' + name));
-            }
+        var matches_fn = element.matches || element.matchesSelector || element.msMatchesSelector || element.mozMatchesSelector || element.webkitMatchesSelector || element.oMatchesSelector;
+
+        if (matches_fn) {
+            truth = matches_fn.call(element, class_name) ? true : truth;
         } else {
-            if (element.dataset) {
-                element.dataset[camelize(name)] = content;
-            } else {
-                element.setAttribute('data-' + name, content);
-            }
+            var nodes = find(class_name);
+
+            self.each(nodes, function (node, _) {
+                if (node === element) {
+                    truth = true;
+                }
+            });
         }
     });
 
-    if (content === null) {
-        return data;
-    }
-}
-
-/**
- * Set the css on the element(s) matching the selector.
- * @param {mixed} selector
- * @param {Object} [properties={}]
- */
-function css(selector) {
-    var properties = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
-
-    each(selector, function (element, _) {
-        for (var property in properties) {
-            element.style[property] = properties[property];
-        }
-    });
-}
-
-/**
- * Hide the element(s) matching the selector.
- * @param {mixed} selector
- */
-function hide(selector) {
-    each(selector, function (element, _) {
-        element.style.display = 'none';
-    });
-}
-
-/**
- * Show the element(s) matching the selector.
- * @param {mixed} selector
- * @param {String} [preferred_display='block']
- */
-function show(selector) {
-    var preferred_display = arguments.length <= 1 || arguments[1] === undefined ? 'block' : arguments[1];
-
-    each(selector, function (element, _) {
-        element.style.display = preferred_display;
-    });
-}
-
-/**
- * Toggle the visibility of the element(s) matching the selector.
- * @param {mixed} selector
- * @param {String} [preferred_display='block']
- */
-function toggle(selector) {
-    var preferred_display = arguments.length <= 1 || arguments[1] === undefined ? 'block' : arguments[1];
-
-    var self = this;
-
-    each(selector, function (element, _) {
-        if ('none' === element.style.display) {
-            show(element, preferred_display);
-        } else {
-            hide(element);
-        }
-    });
+    return truth;
 }
 
 // These are all the functions that Qoob has to offer.
 var qoob = {
     addClass: addClass,
+    addClasses: addClasses,
     ancestor: ancestor,
     append: append,
     attr: attr,
@@ -625,6 +652,7 @@ var qoob = {
     prop: prop,
     remove: remove,
     removeClass: removeClass,
+    removeClasses: removeClasses,
     show: show,
     siblings: siblings,
     strip: strip,
