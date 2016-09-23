@@ -1,6 +1,6 @@
 {
   "name": "qoob",
-  "version": "3.2.0",
+  "version": "3.3.0",
   "description": "A lightweight DOM manipulation library for common tasks.",
   "main": "dist/qoob.min.js",
   "jsnext:main": "src/qoob.js",
