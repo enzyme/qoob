@@ -17,6 +17,19 @@ export function addClass(selector, class_name) {
 }
 
 /**
+ * Add the given classes to the element(s) matching the selector.
+ * @param {mixed} selector
+ * @param {array} classes
+ */
+export function addClasses(selector, classes) {
+    each(selector, (element, _) => {
+        each(classes, (class_name, __) => {
+            addClass(element, class_name);
+        });
+    });
+}
+
+/**
  * Remove the given class from the element(s) matching the selector.
  * @param {mixed} selector
  * @param {string} class_name
@@ -37,6 +50,19 @@ export function removeClass(selector, class_name) {
                     ' '
                 );
         }
+    });
+}
+
+/**
+ * Remove the given classes from the element(s) matching the selector.
+ * @param {mixed} selector
+ * @param {array} classes
+ */
+export function removeClasses(selector, classes) {
+    each(selector, (element, _) => {
+        each(classes, (class_name, __) => {
+            removeClass(element, class_name);
+        });
     });
 }
 
