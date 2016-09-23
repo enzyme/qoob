@@ -122,6 +122,10 @@ function camelize(str) {
 function each(selector, closure) {
     var elements = find(selector);
 
+    if (null === elements) {
+        return;
+    }
+
     for (var i = 0; i < elements.length; i++) {
         closure(elements[i], i);
     }
@@ -134,6 +138,10 @@ function each(selector, closure) {
  * @return {mixed}
  */
 function strip(list) {
+    if (null === list) {
+        return null;
+    }
+
     return list.length > 0 ? list[0] : null;
 }
 
