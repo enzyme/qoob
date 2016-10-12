@@ -39,11 +39,20 @@
         a:hover {
             text-decoration: none;
         }
+
+        #qoob-logo > img {
+            transition: all 1s ease;
+            transform: rotate3d(0, 0, 0, 0) scale3d(1, 1, 1);
+        }
+
+        #qoob-logo:hover > img {
+            transform: rotate3d(0, 0, 1, 180deg) scale3d(0.9, 0.9, 1);
+        }
     </style>
 </head>
 <body>
     <div style="height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-        <a href="https://github.com/enzyme/qoob">
+        <a id="qoob-logo" href="https://github.com/enzyme/qoob">
             <img src="images/qoob.svg" alt="Qoob logo" style="width: 8rem;">
         </a>
         <h1>Qoob (/kjuːb/)</h1>
