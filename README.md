@@ -30,7 +30,7 @@ Qoob.each('p', function(element, index) {
 ```javascript
 let p_tag = Qoob.make('p', 'Hello world!');
 
-Q.append('body', p_tag);
+Qoob.append('body', p_tag);
 ```
 
 and much more...
