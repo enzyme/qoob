@@ -146,6 +146,13 @@ function strip(list) {
 }
 
 /**
+ * Alias for `strip(...)`.
+ */
+function head(list) {
+    return strip(list);
+}
+
+/**
  * Returns a function that takes an object as an argument and returns
  * the given property value on it.
  * @param  {string} name The property name,
@@ -649,6 +656,7 @@ var qoob = {
     first: first,
     func: func,
     hasClass: hasClass,
+    head: head,
     hide: hide,
     html: html,
     is: is,
