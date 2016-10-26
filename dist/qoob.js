@@ -192,6 +192,20 @@ function first(selector) {
 }
 
 /**
+ * Returns a function that calls the given function and returns only the
+ * first result returned by that function. Eg `let firstHtml = Qoob.firstOf(Qoob.html)`
+ * when called like `firstHtml('p')` with multiple `p` tags on the page, will
+ * only return the HTML contents of the first `p` tag.
+ * @param  {Function} fn
+ * @return {mixed}
+ */
+function firstOf(fn) {
+    return function () {
+        return head(fn.apply(undefined, arguments));
+    };
+}
+
+/**
  * Gets or sets the html content on the element(s) matching the selector.
  * @param  {mixed} selector
  * @param  {mixed} [content=null]
@@ -204,7 +218,7 @@ function html(selector) {
 
     each(selector, function (element, _) {
         if (content === null) {
-            html.unshift(element.innerHTML);
+            html.push(element.innerHTML);
         } else {
             element.innerHTML = content;
         }
@@ -228,7 +242,7 @@ function text(selector) {
 
     each(selector, function (element, _) {
         if (value === null) {
-            text.unshift(element.textContent || element.innerText);
+            text.push(element.textContent || element.innerText);
         } else {
             if (element.textContent !== undefined) {
                 element.textContent = value;
@@ -336,7 +350,7 @@ function attr(selector, attribute) {
 
     each(selector, function (element, _) {
         if (value === null) {
-            attr.unshift(element.getAttribute(attribute));
+            attr.push(element.getAttribute(attribute));
         } else {
             element.setAttribute(attribute, value);
         }
@@ -369,7 +383,7 @@ function val(selector) {
 
     each(selector, function (element, _) {
         if (value === null) {
-            val.unshift(element.value);
+            val.push(element.value);
         } else {
             element.value = value;
         }
@@ -396,9 +410,9 @@ function data(selector, name) {
     each(selector, function (element, _) {
         if (content === null) {
             if (element.dataset) {
-                data.unshift(element.dataset[camelize(name)]);
+                data.push(element.dataset[camelize(name)]);
             } else {
-                data.unshift(element.getAttribute('data-' + name));
+                data.push(element.getAttribute('data-' + name));
             }
         } else {
             if (element.dataset) {
@@ -460,7 +474,7 @@ function ancestor(selector, ancestor_selector) {
             var result = finder(cur_node, ancestors);
 
             if (result !== null) {
-                list.unshift(result);
+                list.push(result);
                 break;
             }
 
@@ -480,7 +494,7 @@ function parent(selector) {
     var parents = [];
 
     each(selector, function (element, _) {
-        parents.unshift(element.parentNode);
+        parents.push(element.parentNode);
     });
 
     return parents;
@@ -503,13 +517,13 @@ function children(selector) {
             var child_elements = element.querySelectorAll(child_selector);
 
             each(child_elements, function (child_element, _) {
-                children.unshift(child_element);
+                children.push(child_element);
             });
         } else {
             each(element.children, function (child_element, _) {
                 // Skip comment nodes on IE8
                 if (child_element.nodeType != 8) {
-                    children.unshift(child_element);
+                    children.push(child_element);
                 }
             });
         }
@@ -532,7 +546,7 @@ function siblings(selector) {
 
         each(siblings, function (sibling_element, _) {
             if (element !== sibling_element) {
-                list.unshift(sibling_element);
+                list.push(sibling_element);
             }
         });
     });
@@ -678,6 +692,7 @@ var qoob = {
     remove: remove,
     removeClass: removeClass,
     removeClasses: removeClasses,
+    firstOf: firstOf,
     show: show,
     siblings: siblings,
     state: state,
