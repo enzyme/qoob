@@ -85,6 +85,7 @@ https://cdn.rawgit.com/enzyme/qoob/master/dist/qoob.min.js
 | **prepend** | `selector, child_element` | Prepend the child element given to the element(s) matching the selector. |
 | **prop** | `name` | Returns a function that takes an object as an argument and returns the given property value on it. |
 | **remove** | `selector` | Remove the element(s) from the DOM. |
+| **removeAttr** | `selector, attribute` | Remove the attribute from the element(s) matching the selector. |
 | **removeClass** | `selector, class_name` | Remove the given class from the element(s) matching the selector. |
 | **show** | `selector, preferred_display = 'block'` | Show the element(s) matching the selector. |
 | **siblings** | `selector` | Get an array of siblings for the element(s) matching the selector. |

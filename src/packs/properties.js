@@ -24,6 +24,17 @@ export function attr(selector, attribute, value = null) {
 }
 
 /**
+ * Remove the attribute from the element(s) matching the selector.
+ * @param {mixed} selector
+ * @param {string} attribute
+ */
+export function removeAttr(selector, attribute) {
+    each(selector, (element, _) => {
+        element.removeAttribute(attribute)
+    })
+}
+
+/**
  * Alias for the setter functionality of `attr(...)` where the attribute will
  * be set to a value equal to its name. Eg `state('input', 'disabled')`
  * is equivalent to calling `attr('input', 'disabled', 'disabled')`.
