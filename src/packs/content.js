@@ -11,7 +11,7 @@ export function html(selector, content = null) {
 
     each(selector, (element, _) => {
         if (content === null) {
-            html.unshift(element.innerHTML)
+            html.push(element.innerHTML)
         } else {
             element.innerHTML = content
         }
@@ -33,7 +33,7 @@ export function text(selector, value = null) {
 
     each(selector, (element, _) => {
         if (value === null) {
-            text.unshift((element.textContent || element.innerText))
+            text.push((element.textContent || element.innerText))
         } else {
             if (element.textContent !== undefined) {
                 element.textContent = value

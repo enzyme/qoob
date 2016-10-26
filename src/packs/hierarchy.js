@@ -32,7 +32,7 @@ export function ancestor(selector, ancestor_selector) {
             let result = finder(cur_node, ancestors)
 
             if (result !== null) {
-                list.unshift(result)
+                list.push(result)
                 break
             }
 
@@ -52,7 +52,7 @@ export function parent(selector) {
     let parents = []
 
     each(selector, (element, _) => {
-        parents.unshift(element.parentNode)
+        parents.push(element.parentNode)
     })
 
     return parents
@@ -73,13 +73,13 @@ export function children(selector, child_selector = null) {
             let child_elements = element.querySelectorAll(child_selector)
 
             each(child_elements, (child_element, _) => {
-                children.unshift(child_element)
+                children.push(child_element)
             })
         } else {
             each(element.children, (child_element, _) => {
                 // Skip comment nodes on IE8
                 if (child_element.nodeType != 8) {
-                    children.unshift(child_element)
+                    children.push(child_element)
                 }
             })
         }
@@ -104,7 +104,7 @@ export function siblings(selector) {
 
         each(siblings, (sibling_element, _) => {
             if (element !== sibling_element) {
-                list.unshift(sibling_element)
+                list.push(sibling_element)
             }
         })
     })

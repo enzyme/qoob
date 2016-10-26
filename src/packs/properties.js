@@ -12,7 +12,7 @@ export function attr(selector, attribute, value = null) {
 
     each(selector, (element, _) => {
         if (value === null) {
-            attr.unshift(element.getAttribute(attribute))
+            attr.push(element.getAttribute(attribute))
         } else {
             element.setAttribute(attribute, value)
         }
@@ -43,7 +43,7 @@ export function val(selector, value = null) {
 
     each(selector, (element, _) => {
         if (value === null) {
-            val.unshift(element.value)
+            val.push(element.value)
         } else {
             element.value = value
         }
@@ -68,9 +68,9 @@ export function data(selector, name, content = null) {
     each(selector, (element, _) => {
         if (content === null) {
             if (element.dataset) {
-                data.unshift(element.dataset[camelize(name)])
+                data.push(element.dataset[camelize(name)])
             } else {
-                data.unshift(element.getAttribute('data-' + name))
+                data.push(element.getAttribute('data-' + name))
             }
         } else {
             if (element.dataset) {
