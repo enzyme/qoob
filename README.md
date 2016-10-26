@@ -87,6 +87,7 @@ https://cdn.rawgit.com/enzyme/qoob/master/dist/qoob.min.js
 | **show** | `selector, preferred_display = 'block'` | Show the element(s) matching the selector. |
 | **siblings** | `selector` | Get an array of siblings for the element(s) matching the selector. |
 | **strip** | `list` | Returns the first value in the array provided, otherwise returns null if the array is empty. |
+| **head** | `list` | Alias for `strip(...)`. |
 | **text** | `selector, value = null` | Get or set the text for the element(s) matching the selector. |
 | **toggle** | `selector, preferred_display = 'block'` | Toggle the visibility of the element(s) matching the selector. |
 | **val** | `selector, value = null` | Get or set the value for the element(s) matching the selector. |
