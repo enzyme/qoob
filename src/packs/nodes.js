@@ -1,5 +1,5 @@
-import { html } from './content.js';
-import { isNodeList, each } from './utils.js';
+import { html } from './content.js'
+import { isNodeList, each } from './utils.js'
 
 /**
  * Find and return any element(s) matching the given selector. If the
@@ -10,19 +10,19 @@ import { isNodeList, each } from './utils.js';
  */
 export function find(selector) {
     if (selector === null) {
-        return null;
+        return null
     }
 
     if (selector.constructor === Array
         || true === isNodeList(selector)) {
-        return selector;
+        return selector
     }
 
     if (typeof selector === 'object') {
-        return [selector];
+        return [selector]
     }
 
-    return document.querySelectorAll(selector);
+    return document.querySelectorAll(selector)
 }
 
 /**
@@ -33,8 +33,8 @@ export function find(selector) {
  */
 export function append(selector, child_element) {
     each(selector, (element, _) => {
-        element.appendChild(child_element);
-    });
+        element.appendChild(child_element)
+    })
 }
 
 /**
@@ -45,8 +45,8 @@ export function append(selector, child_element) {
  */
 export function prepend(selector, child_element) {
     each(selector, (element, _) => {
-        element.insertBefore(child_element, element.firstChild);
-    });
+        element.insertBefore(child_element, element.firstChild)
+    })
 }
 
 /**
@@ -55,8 +55,8 @@ export function prepend(selector, child_element) {
  */
 export function remove(selector) {
     each(selector, (element, _) => {
-        element.parentNode.removeChild(element);
-    });
+        element.parentNode.removeChild(element)
+    })
 }
 
 /**
@@ -67,11 +67,11 @@ export function remove(selector) {
  * @return {element}
  */
 export function make(type, inner_html = null) {
-    let element = document.createElement(type);
+    let element = document.createElement(type)
 
     if (null !== inner_html) {
-        html(element, inner_html);
+        html(element, inner_html)
     }
 
-    return element;
+    return element
 }

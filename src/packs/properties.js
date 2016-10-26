@@ -1,4 +1,4 @@
-import { camelize, each } from './utils.js';
+import { camelize, each } from './utils.js'
 
 /**
  * Get or set the given attribute for the element(s) matching the selector.
@@ -8,18 +8,18 @@ import { camelize, each } from './utils.js';
  * @return {mixed}
  */
 export function attr(selector, attribute, value = null) {
-    let attr = [];
+    let attr = []
 
     each(selector, (element, _) => {
         if (value === null) {
-            attr.unshift(element.getAttribute(attribute));
+            attr.unshift(element.getAttribute(attribute))
         } else {
-            element.setAttribute(attribute, value);
+            element.setAttribute(attribute, value)
         }
-    });
+    })
 
     if (value === null) {
-        return attr;
+        return attr
     }
 }
 
@@ -29,7 +29,7 @@ export function attr(selector, attribute, value = null) {
  * is equivalent to calling `attr('input', 'disabled', 'disabled')`.
  */
 export function state(selector, attribute) {
-    attr(selector, attribute, attribute);
+    attr(selector, attribute, attribute)
 }
 
 /**
@@ -39,18 +39,18 @@ export function state(selector, attribute) {
  * @return {mixed}
  */
 export function val(selector, value = null) {
-    let val = [];
+    let val = []
 
     each(selector, (element, _) => {
         if (value === null) {
-            val.unshift(element.value);
+            val.unshift(element.value)
         } else {
-            element.value = value;
+            element.value = value
         }
-    });
+    })
 
     if (value === null) {
-        return val;
+        return val
     }
 }
 
@@ -62,27 +62,27 @@ export function val(selector, value = null) {
  * @return {mixed}
  */
 export function data(selector, name, content = null) {
-    let data = [];
-    let self = this;
+    let data = []
+    let self = this
 
     each(selector, (element, _) => {
         if (content === null) {
             if (element.dataset) {
-                data.unshift(element.dataset[camelize(name)]);
+                data.unshift(element.dataset[camelize(name)])
             } else {
-                data.unshift(element.getAttribute('data-' + name));
+                data.unshift(element.getAttribute('data-' + name))
             }
         } else {
             if (element.dataset) {
-                element.dataset[camelize(name)] = content;
+                element.dataset[camelize(name)] = content
             } else {
-                element.setAttribute('data-' + name, content);
+                element.setAttribute('data-' + name, content)
             }
         }
-    });
+    })
 
     if (content === null) {
-        return data;
+        return data
     }
 }
 
@@ -94,7 +94,7 @@ export function data(selector, name, content = null) {
 export function css(selector, properties = {}) {
     each(selector, (element, _) => {
         for(let property in properties) {
-            element.style[property] = properties[property];
+            element.style[property] = properties[property]
         }
-    });
+    })
 }

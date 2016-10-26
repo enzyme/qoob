@@ -1,4 +1,4 @@
-import { each } from './utils.js';
+import { each } from './utils.js'
 
 /**
  * Hide the element(s) matching the selector.
@@ -6,8 +6,8 @@ import { each } from './utils.js';
  */
 export function hide(selector) {
     each(selector, (element, _) => {
-        element.style.display = 'none';
-    });
+        element.style.display = 'none'
+    })
 }
 
 /**
@@ -17,8 +17,8 @@ export function hide(selector) {
  */
 export function show(selector, preferred_display = 'block') {
     each(selector, (element, _) => {
-        element.style.display = preferred_display;
-    });
+        element.style.display = preferred_display
+    })
 }
 
 /**
@@ -27,13 +27,13 @@ export function show(selector, preferred_display = 'block') {
  * @param {String} [preferred_display='block']
  */
 export function toggle(selector, preferred_display = 'block') {
-    let self = this;
+    let self = this
 
     each(selector, (element, _) => {
         if ('none' === element.style.display) {
-            show(element, preferred_display);
+            show(element, preferred_display)
         } else {
-            hide(element);
+            hide(element)
         }
-    });
+    })
 }

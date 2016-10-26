@@ -1,4 +1,4 @@
-import { each } from './utils.js';
+import { each } from './utils.js'
 
 /**
  * Fire a callback on any element(s) matching the selector when the
@@ -10,13 +10,13 @@ import { each } from './utils.js';
 export function on(selector, event, closure) {
     each(selector, (element, _) => {
         if (element.addEventListener) {
-            element.addEventListener(event, closure);
+            element.addEventListener(event, closure)
         } else {
             element.attachEvent('on' + event, () => {
-                closure.call(element);
-            });
+                closure.call(element)
+            })
         }
-    });
+    })
 }
 
 /**
@@ -25,14 +25,14 @@ export function on(selector, event, closure) {
  */
 export function documentReady(closure) {
     if (document.readyState != 'loading'){
-        closure();
+        closure()
     } else if (document.addEventListener) {
-        document.addEventListener('DOMContentLoaded', closure);
+        document.addEventListener('DOMContentLoaded', closure)
     } else {
         document.attachEvent('onreadystatechange', () => {
             if (document.readyState != 'loading') {
-                closure();
+                closure()
             }
-        });
+        })
     }
 }

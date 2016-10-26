@@ -1,5 +1,5 @@
-import { find } from './nodes.js';
-import { each } from './utils.js';
+import { find } from './nodes.js'
+import { each } from './utils.js'
 
 /**
  * Add the given class to the element(s) matching the selector.
@@ -9,11 +9,11 @@ import { each } from './utils.js';
 export function addClass(selector, class_name) {
     each(selector, (element, _) => {
         if (element.classList) {
-            element.classList.add(class_name);
+            element.classList.add(class_name)
         } else {
-            element.className += ' ' + class_name;
+            element.className += ' ' + class_name
         }
-    });
+    })
 }
 
 /**
@@ -24,9 +24,9 @@ export function addClass(selector, class_name) {
 export function addClasses(selector, classes) {
     each(selector, (element, _) => {
         each(classes, (class_name, __) => {
-            addClass(element, class_name);
-        });
-    });
+            addClass(element, class_name)
+        })
+    })
 }
 
 /**
@@ -37,7 +37,7 @@ export function addClasses(selector, classes) {
 export function removeClass(selector, class_name) {
     each(selector, (element, _) => {
         if (element.classList) {
-            element.classList.remove(class_name);
+            element.classList.remove(class_name)
         } else {
             element.className = element
                 .className
@@ -48,9 +48,9 @@ export function removeClass(selector, class_name) {
                         '(\\b|$)', 'gi'
                     ),
                     ' '
-                );
+                )
         }
-    });
+    })
 }
 
 /**
@@ -61,9 +61,9 @@ export function removeClass(selector, class_name) {
 export function removeClasses(selector, classes) {
     each(selector, (element, _) => {
         each(classes, (class_name, __) => {
-            removeClass(element, class_name);
-        });
-    });
+            removeClass(element, class_name)
+        })
+    })
 }
 
 /**
@@ -75,24 +75,24 @@ export function removeClasses(selector, classes) {
  * @return {Boolean}
  */
 export function hasClass(selector, class_name) {
-    let truth = false;
+    let truth = false
 
     each(selector, (element, _) => {
         if (element.classList) {
             truth = element.classList.contains(class_name) === true
                 ? true
-                : truth;
+                : truth
         } else {
             truth = (
                 new RegExp('(^| )' + class_name + '( |$)', 'gi')
                     .test(element.className)
             ) === true
                 ? true
-                : truth;
+                : truth
         }
-    });
+    })
 
-    return truth;
+    return truth
 }
 
 /**
@@ -103,8 +103,8 @@ export function hasClass(selector, class_name) {
  * @return {Boolean}
  */
 export function is(selector, class_name) {
-    let truth = false;
-    let self = this;
+    let truth = false
+    let self = this
 
     each(selector, (element, _) => {
         let matches_fn = (
@@ -114,20 +114,20 @@ export function is(selector, class_name) {
             || element.mozMatchesSelector
             || element.webkitMatchesSelector
             || element.oMatchesSelector
-        );
+        )
 
         if (matches_fn) {
-            truth = matches_fn.call(element, class_name) ? true : truth;
+            truth = matches_fn.call(element, class_name) ? true : truth
         } else {
-            let nodes = find(class_name);
+            let nodes = find(class_name)
 
             self.each(nodes, (node, _) => {
                 if (node === element) {
-                    truth = true;
+                    truth = true
                 }
-            });
+            })
         }
-    });
+    })
 
-    return truth;
+    return truth
 }

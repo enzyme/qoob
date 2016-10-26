@@ -1,4 +1,4 @@
-import { find } from './nodes.js';
+import { find } from './nodes.js'
 
 /**
  * Whether the given object is a NodeList.
@@ -9,7 +9,7 @@ export function isNodeList(object) {
     return (
         typeof object.length != 'undefined'
         && typeof object.item != 'undefined'
-    );
+    )
 }
 
 /**
@@ -19,8 +19,8 @@ export function isNodeList(object) {
  */
 export function uniques(list) {
     return list.filter((value, index, self) => {
-        return self.indexOf(value) === index;
-    });
+        return self.indexOf(value) === index
+    })
 }
 
 /**
@@ -30,8 +30,8 @@ export function uniques(list) {
  */
 export function camelize(str) {
     return str.replace(/-([a-z])/g, (m, w) => {
-        return w.toUpperCase();
-    });
+        return w.toUpperCase()
+    })
 }
 
 /**
@@ -41,14 +41,14 @@ export function camelize(str) {
  * @param {function} closure Will be passed element and index arguments.
  */
 export function each(selector, closure) {
-    let elements = find(selector);
+    let elements = find(selector)
 
     if (null === elements) {
-        return;
+        return
     }
 
     for (let i = 0; i < elements.length; i++) {
-        closure(elements[i], i);
+        closure(elements[i], i)
     }
 }
 
@@ -60,19 +60,19 @@ export function each(selector, closure) {
  */
 export function strip(list) {
     if (null === list) {
-        return null;
+        return null
     }
 
     return list.length > 0
         ? list[0]
-        : null;
+        : null
 }
 
 /**
  * Alias for `strip(...)`.
  */
 export function head(list) {
-    return strip(list);
+    return strip(list)
 }
 
 /**
@@ -83,7 +83,7 @@ export function head(list) {
  */
 export function prop(name) {
     return (element) => {
-        return element[name];
+        return element[name]
     }
 }
 
@@ -95,7 +95,7 @@ export function prop(name) {
  */
 export function func(name) {
     return (element) => {
-        return element[name]();
+        return element[name]()
     }
 }
 
@@ -105,11 +105,11 @@ export function func(name) {
  * @return {mixed}
  */
 export function first(selector) {
-    let elements = find(selector);
+    let elements = find(selector)
 
     if (elements.length > 0) {
-        return elements[0];
+        return elements[0]
     }
 
-    return null;
+    return null
 }

@@ -1,4 +1,4 @@
-import { each } from './utils.js';
+import { each } from './utils.js'
 
 /**
  * Gets or sets the html content on the element(s) matching the selector.
@@ -7,18 +7,18 @@ import { each } from './utils.js';
  * @return {mixed}
  */
 export function html(selector, content = null) {
-    let html = [];
+    let html = []
 
     each(selector, (element, _) => {
         if (content === null) {
-            html.unshift(element.innerHTML);
+            html.unshift(element.innerHTML)
         } else {
-            element.innerHTML = content;
+            element.innerHTML = content
         }
-    });
+    })
 
     if (content === null) {
-        return html;
+        return html
     }
 }
 
@@ -29,21 +29,21 @@ export function html(selector, content = null) {
  * @return {mixed}
  */
 export function text(selector, value = null) {
-    let text = [];
+    let text = []
 
     each(selector, (element, _) => {
         if (value === null) {
-            text.unshift((element.textContent || element.innerText));
+            text.unshift((element.textContent || element.innerText))
         } else {
             if (element.textContent !== undefined) {
-                element.textContent = value;
+                element.textContent = value
             } else {
-                element.innerText = value;
+                element.innerText = value
             }
         }
-    });
+    })
 
     if (value === null) {
-        return text;
+        return text
     }
 }
