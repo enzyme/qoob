@@ -113,3 +113,17 @@ export function first(selector) {
 
     return null
 }
+
+/**
+ * Returns a function that calls the given function and returns only the
+ * first result returned by that function. Eg `let firstHtml = Qoob.firstOf(Qoob.html)`
+ * when called like `firstHtml('p')` with multiple `p` tags on the page, will
+ * only return the HTML contents of the first `p` tag.
+ * @param  {Function} fn
+ * @return {mixed}
+ */
+export function firstOf(fn) {
+    return (...args) => {
+        return head(fn(...args))
+    }
+}

@@ -72,6 +72,7 @@ https://cdn.rawgit.com/enzyme/qoob/master/dist/qoob.min.js
 | **each** | `selector, closure` | Execute the given callback function for each element in the list provided. |
 | **find** | `selector` | Find and return any element(s) matching the given selector. If the selector is an array or NodeList, simply return it as is. If the selector is a single object, return it as an array with 1 element. |
 | **first** | `selector` | Get the first element matching the given selector.|
+| **firstOf** | `fn` | Returns a function that calls the given function and returns only the first result returned by that function. Eg `let firstHtml = Qoob.firstOf(Qoob.html)` when called like `firstHtml('p')` with multiple `p` tags on the page, will only return the HTML contents of the first `p` tag. |
 | **func** | `name` | Returns a function that takes an object as an argument and returns the value returned by calling the provided function on it. |
 | **hasClass** | `selector, class_name` | Checks whether the given class exists on the element(s) matching the selector. This will still return true if multiple elements are matched and any one of them has the class applied. |
 | **head** | `list` | Alias for `strip(...)`. |
