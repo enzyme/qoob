@@ -1,7 +1,7 @@
 import { html, text } from './packs/content.js';
 import { on, documentReady } from './packs/events.js';
 import { hide, show, toggle } from './packs/visibility.js';
-import { attr, val, data, css } from './packs/properties.js';
+import { attr, state, val, data, css } from './packs/properties.js';
 import { find, append, prepend, remove, make } from './packs/nodes.js';
 import { ancestor, parent, children, siblings } from './packs/hierarchy.js';
 import { isNodeList, uniques, camelize, each, strip, head, prop, func, first } from './packs/utils.js';
@@ -39,6 +39,7 @@ export default {
     removeClasses,
     show,
     siblings,
+    state,
     strip,
     text,
     toggle,

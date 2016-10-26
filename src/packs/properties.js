@@ -24,6 +24,15 @@ export function attr(selector, attribute, value = null) {
 }
 
 /**
+ * Alias for the setter functionality of `attr(...)` where the attribute will
+ * be set to a value equal to its name. Eg `state('input', 'disabled')`
+ * is equivalent to calling `attr('input', 'disabled', 'disabled')`.
+ */
+export function state(selector, attribute) {
+    attr(selector, attribute, attribute);
+}
+
+/**
  * Get or set the value for the element(s) matching the selector.
  * @param  {mixed} selector
  * @param  {mixed} [value=null]

@@ -74,6 +74,7 @@ https://cdn.rawgit.com/enzyme/qoob/master/dist/qoob.min.js
 | **first** | `selector` | Get the first element matching the given selector.|
 | **func** | `name` | Returns a function that takes an object as an argument and returns the value returned by calling the provided function on it. |
 | **hasClass** | `selector, class_name` | Checks whether the given class exists on the element(s) matching the selector. This will still return true if multiple elements are matched and any one of them has the class applied. |
+| **head** | `list` | Alias for `strip(...)`. |
 | **hide** | `selector` | Hide the element(s) matching the selector. |
 | **html** | `selector, content = null` | Gets or sets the html content on the element(s) matching the selector. |
 | **is** | `selector, class_name` | Whether the element(s) matching the selector have the given class applied. |
@@ -86,8 +87,8 @@ https://cdn.rawgit.com/enzyme/qoob/master/dist/qoob.min.js
 | **removeClass** | `selector, class_name` | Remove the given class from the element(s) matching the selector. |
 | **show** | `selector, preferred_display = 'block'` | Show the element(s) matching the selector. |
 | **siblings** | `selector` | Get an array of siblings for the element(s) matching the selector. |
+| **state** | `selector, attribute` | Alias for the setter functionality of `attr(...)` where the attribute will be set to a value equal to its name. Eg `state('input', 'disabled')` is equivalent to calling `attr('input', 'disabled', 'disabled')`. |
 | **strip** | `list` | Returns the first value in the array provided, otherwise returns null if the array is empty. |
-| **head** | `list` | Alias for `strip(...)`. |
 | **text** | `selector, value = null` | Get or set the text for the element(s) matching the selector. |
 | **toggle** | `selector, preferred_display = 'block'` | Toggle the visibility of the element(s) matching the selector. |
 | **val** | `selector, value = null` | Get or set the value for the element(s) matching the selector. |
