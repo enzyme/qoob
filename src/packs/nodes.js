@@ -33,7 +33,9 @@ export function find(selector) {
  */
 export function append(selector, child_element) {
     each(selector, (element, _) => {
-        element.appendChild(child_element)
+        each(child_element, (child, __) => {
+            element.appendChild(child)
+        })
     })
 }
 
@@ -74,4 +76,19 @@ export function make(type, inner_html = null) {
     }
 
     return element
+}
+
+/**
+ * Clone the given element(s) matching the selector and return them as an array.
+ * @param  {string} selector
+ * @return {array}
+ */
+export function clone(selector) {
+    let nodes = []
+
+    each(selector, (element, _) => {
+        nodes.push(element.cloneNode(true))
+    })
+
+    return nodes
 }
