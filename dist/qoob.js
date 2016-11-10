@@ -37,7 +37,9 @@ function find(selector) {
  */
 function append(selector, child_element) {
     each(selector, function (element, _) {
-        element.appendChild(child_element);
+        each(child_element, function (child, __) {
+            element.appendChild(child);
+        });
     });
 }
 
@@ -80,6 +82,16 @@ function make(type) {
     }
 
     return element;
+}
+
+function clone(selector) {
+    var nodes = [];
+
+    each(selector, function (element, _) {
+        nodes.push(element.cloneNode(true));
+    });
+
+    return nodes;
 }
 
 /**
@@ -682,6 +694,7 @@ var qoob = {
     attr: attr,
     camelize: camelize,
     children: children,
+    clone: clone,
     css: css,
     data: data,
     documentReady: documentReady,
