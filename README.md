@@ -66,6 +66,7 @@ https://cdn.rawgit.com/enzyme/qoob/master/dist/qoob.min.js
 | **append** | `selector, child_element` | Append the child element given to the element(s) matching the selector. |
 | **attr** | `selector, attribute, value = null` | Get or set the given attribute for the element(s) matching the selector. |
 | **children** | `selector, child_selector = null` | Get an array of children for the element(s) matching the selector. |
+| **clone** | `selector` | Clone the given element(s) matching the selector and return them as an array. |
 | **css** | `selector, properties = {}` | Set the css on the element(s) matching the selector. |
 | **data** | `selector, name, content = null` | Gets or sets the data attributes on the element(s) matching the selector. |
 | **documentReady** | `closure` | Executes the given callback function with the document is ready. |
