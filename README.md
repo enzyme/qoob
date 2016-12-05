@@ -28,7 +28,7 @@ Q.on('.Button', 'click', (e) => {
 import Q from 'qoob'
 
 Q.each('p', (el, i) => {
-    Q.html(el, 'I am at index ' + i)
+    Q.html(el, `I am at index ${i}`)
 })
 ```
 
