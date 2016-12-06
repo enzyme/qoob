@@ -18,6 +18,10 @@ function find(selector) {
         return null;
     }
 
+    if (selector.type) {
+        return [selector];
+    }
+
     if (selector.constructor === Array || true === isNodeList(selector)) {
         return selector;
     }
@@ -84,6 +88,11 @@ function make(type) {
     return element;
 }
 
+/**
+ * Clone the given element(s) matching the selector and return them as an array.
+ * @param  {string} selector
+ * @return {array}
+ */
 function clone(selector) {
     var nodes = [];
 
