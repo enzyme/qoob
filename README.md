@@ -6,31 +6,39 @@
 
 ### CSS manipulation
 ```javascript
-Qoob.css('p', {
+import Q from 'qoob'
+
+Q.css('p', {
     color: 'red',
     fontWeight: 'bold',
-});
+})
 ```
 
 ### Events
 ```javascript
-Qoob.on('.Button', 'click', function(e) {
-    alert('Button was clicked!');
-});
+import Q from 'qoob'
+
+Q.on('.Button', 'click', (e) => {
+    alert('Button was clicked!')
+})
 ```
 
 ### Iteration + HTML manipulation
 ```javascript
-Qoob.each('p', function(element, index) {
-    Qoob.html(element, 'I am at index ' + index);
-});
+import Q from 'qoob'
+
+Q.each('p', (el, i) => {
+    Q.html(el, `I am at index ${i}`)
+})
 ```
 
 ### Element creation
 ```javascript
-let p_tag = Qoob.make('p', 'Hello world!');
+import Q from 'qoob'
 
-Qoob.append('body', p_tag);
+let p_tag = Q.make('p', 'Hello world!')
+
+Q.append('body', p_tag)
 ```
 
 and much more...
