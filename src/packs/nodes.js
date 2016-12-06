@@ -13,6 +13,10 @@ export function find(selector) {
         return null
     }
 
+    if (selector.type) {
+      return [selector]
+    }
+
     if (selector.constructor === Array
         || true === isNodeList(selector)) {
         return selector
