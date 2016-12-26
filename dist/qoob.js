@@ -473,7 +473,9 @@ function css(selector, propertee) {
       var values = [];
 
       each(selector, function (element, _) {
-        values.push(element.style[propertee]);
+        var styles = window.getComputedStyle(element);
+
+        values.push(styles.getPropertyValue(propertee));
       });
 
       return {
