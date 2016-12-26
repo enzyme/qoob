@@ -107,7 +107,9 @@ export function css(selector, propertee) {
     let values = []
 
     each(selector, (element, _) => {
-      values.push(element.style[propertee])
+      const styles = window.getComputedStyle(element)
+
+      values.push(styles.getPropertyValue(propertee))
     })
 
     return values
