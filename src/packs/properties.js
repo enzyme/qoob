@@ -1,100 +1,100 @@
 import { camelize, each } from './utils.js'
 
 /**
- * Get or set the given attribute for the element(s) matching the selector.
- * @param  {mixed} selector
- * @param  {string} attribute
- * @param  {mixed} [value=null]
- * @return {mixed}
- */
+* Get or set the given attribute for the element(s) matching the selector.
+* @param  {mixed} selector
+* @param  {string} attribute
+* @param  {mixed} [value=null]
+* @return {mixed}
+*/
 export function attr(selector, attribute, value = null) {
-    let attr = []
+  let attr = []
 
-    each(selector, (element, _) => {
-        if (value === null) {
-            attr.push(element.getAttribute(attribute))
-        } else {
-            element.setAttribute(attribute, value)
-        }
-    })
-
+  each(selector, (element, _) => {
     if (value === null) {
-        return attr
+      attr.push(element.getAttribute(attribute))
+    } else {
+      element.setAttribute(attribute, value)
     }
+  })
+
+  if (value === null) {
+    return attr
+  }
 }
 
 /**
- * Remove the attribute from the element(s) matching the selector.
- * @param {mixed} selector
- * @param {string} attribute
- */
+* Remove the attribute from the element(s) matching the selector.
+* @param {mixed} selector
+* @param {string} attribute
+*/
 export function removeAttr(selector, attribute) {
-    each(selector, (element, _) => {
-        element.removeAttribute(attribute)
-    })
+  each(selector, (element, _) => {
+    element.removeAttribute(attribute)
+  })
 }
 
 /**
- * Alias for the setter functionality of `attr(...)` where the attribute will
- * be set to a value equal to its name. Eg `state('input', 'disabled')`
- * is equivalent to calling `attr('input', 'disabled', 'disabled')`.
- */
+* Alias for the setter functionality of `attr(...)` where the attribute will
+* be set to a value equal to its name. Eg `state('input', 'disabled')`
+* is equivalent to calling `attr('input', 'disabled', 'disabled')`.
+*/
 export function state(selector, attribute) {
-    attr(selector, attribute, attribute)
+  attr(selector, attribute, attribute)
 }
 
 /**
- * Get or set the value for the element(s) matching the selector.
- * @param  {mixed} selector
- * @param  {mixed} [value=null]
- * @return {mixed}
- */
+* Get or set the value for the element(s) matching the selector.
+* @param  {mixed} selector
+* @param  {mixed} [value=null]
+* @return {mixed}
+*/
 export function val(selector, value = null) {
-    let val = []
+  let val = []
 
-    each(selector, (element, _) => {
-        if (value === null) {
-            val.push(element.value)
-        } else {
-            element.value = value
-        }
-    })
-
+  each(selector, (element, _) => {
     if (value === null) {
-        return val
+      val.push(element.value)
+    } else {
+      element.value = value
     }
+  })
+
+  if (value === null) {
+    return val
+  }
 }
 
 /**
- * Gets or sets the data attributes on the element(s) matching the selector.
- * @param  {mixed} selector
- * @param  {String} name
- * @param  {String} [content=null]
- * @return {mixed}
- */
+* Gets or sets the data attributes on the element(s) matching the selector.
+* @param  {mixed} selector
+* @param  {String} name
+* @param  {String} [content=null]
+* @return {mixed}
+*/
 export function data(selector, name, content = null) {
-    let data = []
-    let self = this
+  let data = []
+  let self = this
 
-    each(selector, (element, _) => {
-        if (content === null) {
-            if (element.dataset) {
-                data.push(element.dataset[camelize(name)])
-            } else {
-                data.push(element.getAttribute('data-' + name))
-            }
-        } else {
-            if (element.dataset) {
-                element.dataset[camelize(name)] = content
-            } else {
-                element.setAttribute('data-' + name, content)
-            }
-        }
-    })
-
+  each(selector, (element, _) => {
     if (content === null) {
-        return data
+      if (element.dataset) {
+        data.push(element.dataset[camelize(name)])
+      } else {
+        data.push(element.getAttribute('data-' + name))
+      }
+    } else {
+      if (element.dataset) {
+        element.dataset[camelize(name)] = content
+      } else {
+        element.setAttribute('data-' + name, content)
+      }
     }
+  })
+
+  if (content === null) {
+    return data
+  }
 }
 
 /**
