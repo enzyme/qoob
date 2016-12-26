@@ -98,14 +98,24 @@ export function data(selector, name, content = null) {
 }
 
 /**
- * Set the css on the element(s) matching the selector.
- * @param {mixed} selector
- * @param {Object} [properties={}]
- */
-export function css(selector, properties = {}) {
+* Set the css on the element(s) matching the selector.
+* @param {mixed} selector
+* @param {mixed} propertee
+*/
+export function css(selector, propertee) {
+  if (typeof propertee === 'string') {
+    let values = []
+
     each(selector, (element, _) => {
-        for(let property in properties) {
-            element.style[property] = properties[property]
-        }
+      values.push(element.style[propertee])
     })
+
+    return values
+  }
+
+  each(selector, (element, _) => {
+    for(let property in propertee) {
+      element.style[property] = propertee[property]
+    }
+  })
 }
