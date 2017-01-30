@@ -75,7 +75,7 @@ https://cdn.rawgit.com/enzyme/qoob/master/dist/qoob.min.js
 | **attr** | `selector, attribute, value = null` | Get or set the given attribute for the element(s) matching the selector. |
 | **children** | `selector, child_selector = null` | Get an array of children for the element(s) matching the selector. |
 | **clone** | `selector` | Clone the given element(s) matching the selector and return them as an array. |
-| **css** | `selector, properties = {}` | Set the css on the element(s) matching the selector. |
+| **css** | `selector, properties = {}` | Set the given css description object on the element(s) matching the selector, or get the value of the css property if `properties` is a string value. E.g. "padding". |
 | **data** | `selector, name, content = null` | Gets or sets the data attributes on the element(s) matching the selector. |
 | **documentReady** | `closure` | Executes the given callback function with the document is ready. |
 | **each** | `selector, closure` | Execute the given callback function for each element in the list provided. |
