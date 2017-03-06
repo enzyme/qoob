@@ -4,7 +4,59 @@
   (global.Qoob = factory());
 }(this, (function () { 'use strict';
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+/**
+* Gets or sets the html content on the element(s) matching the selector.
+* @param  {mixed} selector
+* @param  {mixed} [content=null]
+* @return {mixed}
+*/
+function html(selector) {
+  var content = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+
+  var html = [];
+
+  each(selector, function (element, _) {
+    if (content === null) {
+      html.push(element.innerHTML);
+    } else {
+      element.innerHTML = content;
+    }
+  });
+
+  if (content === null) {
+    return html;
+  }
+}
+
+/**
+* Get or set the text for the element(s) matching the selector.
+* @param  {mixed} selector
+* @param  {mixed} [value=null]
+* @return {mixed}
+*/
+function text(selector) {
+  var value = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+
+  var text = [];
+
+  each(selector, function (element, _) {
+    if (value === null) {
+      text.push(element.textContent || element.innerText);
+    } else {
+      if (element.textContent !== undefined) {
+        element.textContent = value;
+      } else {
+        element.innerText = value;
+      }
+    }
+  });
+
+  if (value === null) {
+    return text;
+  }
+}
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 /**
 * Find and return any element(s) matching the given selector. If the
@@ -77,7 +129,7 @@ function remove(selector) {
 * @return {element}
 */
 function make(type) {
-  var inner_html = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
+  var inner_html = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
 
   var element = document.createElement(type);
 
@@ -227,55 +279,153 @@ function firstOf(fn) {
 }
 
 /**
-* Gets or sets the html content on the element(s) matching the selector.
+* Get or set the given attribute for the element(s) matching the selector.
 * @param  {mixed} selector
-* @param  {mixed} [content=null]
-* @return {mixed}
-*/
-function html(selector) {
-  var content = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
-
-  var html = [];
-
-  each(selector, function (element, _) {
-    if (content === null) {
-      html.push(element.innerHTML);
-    } else {
-      element.innerHTML = content;
-    }
-  });
-
-  if (content === null) {
-    return html;
-  }
-}
-
-/**
-* Get or set the text for the element(s) matching the selector.
-* @param  {mixed} selector
+* @param  {string} attribute
 * @param  {mixed} [value=null]
 * @return {mixed}
 */
-function text(selector) {
-  var value = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
+function attr(selector, attribute) {
+  var value = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
 
-  var text = [];
+  var attr = [];
 
   each(selector, function (element, _) {
     if (value === null) {
-      text.push(element.textContent || element.innerText);
+      attr.push(element.getAttribute(attribute));
     } else {
-      if (element.textContent !== undefined) {
-        element.textContent = value;
-      } else {
-        element.innerText = value;
-      }
+      element.setAttribute(attribute, value);
     }
   });
 
   if (value === null) {
-    return text;
+    return attr;
   }
+}
+
+/**
+* Remove the attribute from the element(s) matching the selector.
+* @param {mixed} selector
+* @param {string} attribute
+*/
+function removeAttr(selector, attribute) {
+  each(selector, function (element, _) {
+    element.removeAttribute(attribute);
+  });
+}
+
+/**
+* Alias for the setter functionality of `attr(...)` where the attribute will
+* be set to a value equal to its name. Eg `state('input', 'disabled')`
+* is equivalent to calling `attr('input', 'disabled', 'disabled')`.
+*/
+function state(selector, attribute) {
+  attr(selector, attribute, attribute);
+}
+
+/**
+* Get or set the value for the element(s) matching the selector.
+* @param  {mixed} selector
+* @param  {mixed} [value=null]
+* @return {mixed}
+*/
+function val(selector) {
+  var value = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+
+  var val = [];
+
+  each(selector, function (element, _) {
+    if (value === null) {
+      val.push(element.value);
+    } else {
+      element.value = value;
+    }
+  });
+
+  if (value === null) {
+    return val;
+  }
+}
+
+/**
+* Gets or sets the data attributes on the element(s) matching the selector.
+* @param  {mixed} selector
+* @param  {String} name
+* @param  {String} [content=null]
+* @return {mixed}
+*/
+function data(selector, name) {
+  var content = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+
+  var data = [];
+  var self = this;
+
+  each(selector, function (element, _) {
+    if (content === null) {
+      if (element.dataset) {
+        data.push(element.dataset[camelize(name)]);
+      } else {
+        data.push(element.getAttribute('data-' + name));
+      }
+    } else {
+      if (element.dataset) {
+        element.dataset[camelize(name)] = content;
+      } else {
+        element.setAttribute('data-' + name, content);
+      }
+    }
+  });
+
+  if (content === null) {
+    return data;
+  }
+}
+
+/**
+* Set the css on the element(s) matching the selector.
+* @param {mixed} selector
+* @param {mixed} propertee
+*/
+function css(selector, propertee) {
+  if (typeof propertee === 'string') {
+    var values = [];
+
+    each(selector, function (element, _) {
+      var styles = window.getComputedStyle(element);
+
+      values.push(styles.getPropertyValue(propertee));
+    });
+
+    return values;
+  }
+
+  each(selector, function (element, _) {
+    for (var property in propertee) {
+      element.style[property] = propertee[property];
+    }
+  });
+}
+
+/**
+* Remove the attribute from the element(s) matching the selector.
+* @param {mixed} selector
+* @param {string} attribute
+*/
+function toggler(selector, fn_on, fn_off) {
+  each(selector, function (element, _) {
+    var data_val = head(data(element, 'toggler-state'));
+    var state$$1 = data_val || 'off';
+
+    if (state$$1 === 'off') {
+      if (fn_on(element) !== true) {
+        data(element, 'toggler-state', 'on');
+      }
+    } else {
+      if (fn_off(element) !== true) {
+        data(element, 'toggler-state', 'off');
+      }
+    }
+  });
 }
 
 /**
@@ -331,7 +481,7 @@ function hide(selector) {
 * @param {String} [preferred_display='block']
 */
 function show(selector) {
-  var preferred_display = arguments.length <= 1 || arguments[1] === undefined ? 'block' : arguments[1];
+  var preferred_display = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'block';
 
   each(selector, function (element, _) {
     element.style.display = preferred_display;
@@ -344,7 +494,7 @@ function show(selector) {
 * @param {String} [preferred_display='block']
 */
 function toggle(selector) {
-  var preferred_display = arguments.length <= 1 || arguments[1] === undefined ? 'block' : arguments[1];
+  var preferred_display = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'block';
 
   var self = this;
 
@@ -353,142 +503,6 @@ function toggle(selector) {
       show(element, preferred_display);
     } else {
       hide(element);
-    }
-  });
-}
-
-var _typeof$1 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
-
-/**
-* Get or set the given attribute for the element(s) matching the selector.
-* @param  {mixed} selector
-* @param  {string} attribute
-* @param  {mixed} [value=null]
-* @return {mixed}
-*/
-function attr(selector, attribute) {
-  var value = arguments.length <= 2 || arguments[2] === undefined ? null : arguments[2];
-
-  var attr = [];
-
-  each(selector, function (element, _) {
-    if (value === null) {
-      attr.push(element.getAttribute(attribute));
-    } else {
-      element.setAttribute(attribute, value);
-    }
-  });
-
-  if (value === null) {
-    return attr;
-  }
-}
-
-/**
-* Remove the attribute from the element(s) matching the selector.
-* @param {mixed} selector
-* @param {string} attribute
-*/
-function removeAttr(selector, attribute) {
-  each(selector, function (element, _) {
-    element.removeAttribute(attribute);
-  });
-}
-
-/**
-* Alias for the setter functionality of `attr(...)` where the attribute will
-* be set to a value equal to its name. Eg `state('input', 'disabled')`
-* is equivalent to calling `attr('input', 'disabled', 'disabled')`.
-*/
-function state(selector, attribute) {
-  attr(selector, attribute, attribute);
-}
-
-/**
-* Get or set the value for the element(s) matching the selector.
-* @param  {mixed} selector
-* @param  {mixed} [value=null]
-* @return {mixed}
-*/
-function val(selector) {
-  var value = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
-
-  var val = [];
-
-  each(selector, function (element, _) {
-    if (value === null) {
-      val.push(element.value);
-    } else {
-      element.value = value;
-    }
-  });
-
-  if (value === null) {
-    return val;
-  }
-}
-
-/**
-* Gets or sets the data attributes on the element(s) matching the selector.
-* @param  {mixed} selector
-* @param  {String} name
-* @param  {String} [content=null]
-* @return {mixed}
-*/
-function data(selector, name) {
-  var content = arguments.length <= 2 || arguments[2] === undefined ? null : arguments[2];
-
-  var data = [];
-  var self = this;
-
-  each(selector, function (element, _) {
-    if (content === null) {
-      if (element.dataset) {
-        data.push(element.dataset[camelize(name)]);
-      } else {
-        data.push(element.getAttribute('data-' + name));
-      }
-    } else {
-      if (element.dataset) {
-        element.dataset[camelize(name)] = content;
-      } else {
-        element.setAttribute('data-' + name, content);
-      }
-    }
-  });
-
-  if (content === null) {
-    return data;
-  }
-}
-
-/**
-* Set the css on the element(s) matching the selector.
-* @param {mixed} selector
-* @param {mixed} propertee
-*/
-function css(selector, propertee) {
-  if (typeof propertee === 'string') {
-    var _ret = function () {
-      var values = [];
-
-      each(selector, function (element, _) {
-        var styles = window.getComputedStyle(element);
-
-        values.push(styles.getPropertyValue(propertee));
-      });
-
-      return {
-        v: values
-      };
-    }();
-
-    if ((typeof _ret === 'undefined' ? 'undefined' : _typeof$1(_ret)) === "object") return _ret.v;
-  }
-
-  each(selector, function (element, _) {
-    for (var property in propertee) {
-      element.style[property] = propertee[property];
     }
   });
 }
@@ -557,7 +571,7 @@ function parent(selector) {
 * @return {array}
 */
 function children(selector) {
-  var child_selector = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
+  var child_selector = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
 
   var children = [];
   var self = this;
@@ -751,6 +765,7 @@ var qoob = {
   strip: strip,
   text: text,
   toggle: toggle,
+  toggler: toggler,
   uniques: uniques,
   val: val
 };

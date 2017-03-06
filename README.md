@@ -102,6 +102,7 @@ https://cdn.rawgit.com/enzyme/qoob/master/dist/qoob.min.js
 | **strip** | `list` | Returns the first value in the array provided, otherwise returns null if the array is empty. |
 | **text** | `selector, value = null` | Get or set the text for the element(s) matching the selector. |
 | **toggle** | `selector, preferred_display = 'block'` | Toggle the visibility of the element(s) matching the selector. |
+| **toggler** | `selector, fn_on, fn_off` | When called on `selector`, it will either call `fn_on` or `fn_off` if the state of the element(s) are transitioning to their `on` or `off` states respectively. Element(s) start in an `off` state. |
 | **val** | `selector, value = null` | Get or set the value for the element(s) matching the selector. |
 
 ## License
