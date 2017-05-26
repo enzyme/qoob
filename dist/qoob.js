@@ -86,6 +86,25 @@ function find(selector) {
 }
 
 /**
+ * Find and return any element(s) matching the given selectors.
+ * @param  {mixed} selector
+ * @return {array}
+ */
+function findAll(selectors) {
+  var nodes = [];
+
+  for (var i = 0; i < selectors.length; i++) {
+    var results = find(selectors[i]);
+
+    for (var j = 0; j < results.length; j++) {
+      nodes.push(results[j]);
+    }
+  }
+
+  return nodes;
+}
+
+/**
 * Append the child element given to the element(s)
 * matching the selector.
 * @param {mixed} selector
@@ -741,6 +760,7 @@ var qoob = {
   documentReady: documentReady,
   each: each,
   find: find,
+  findAll: findAll,
   first: first,
   firstOf: firstOf,
   func: func,
