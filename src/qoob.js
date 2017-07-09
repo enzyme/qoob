@@ -1,6 +1,6 @@
 import { toggler } from './packs/helpers.js';
 import { html, text } from './packs/content.js'
-import { on, documentReady } from './packs/events.js'
+import { on, off, documentReady } from './packs/events.js'
 import { hide, show, toggle } from './packs/visibility.js'
 import { ancestor, parent, children, siblings } from './packs/hierarchy.js'
 import { find, findAll, append, prepend, remove, make, clone } from './packs/nodes.js'
@@ -35,6 +35,7 @@ export default {
   isNodeList,
   make,
   on,
+  off,
   parent,
   prepend,
   prop,

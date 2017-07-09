@@ -20,6 +20,22 @@ export function on(selector, event, closure) {
 }
 
 /**
+* Remove the given closure off the event from the element(s) matching the selector.
+* @param {mixed} selector
+* @param {string} event
+* @param {function} closure
+*/
+export function off(selector, event, closure) {
+  each(selector, (element, _) => {
+    if (element.removeEventListener) {
+      element.removeEventListener(event, closure)
+    } else {
+      element.detachEvent('on' + event, closure)
+    }
+  })
+}
+
+/**
 * Executes the given callback function with the document is ready.
 * @param {function} closure
 */
