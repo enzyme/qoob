@@ -91,6 +91,7 @@ https://cdn.rawgit.com/enzyme/qoob/master/dist/qoob.min.js
 | **is** | `selector, class_name` | Whether the element(s) matching the selector have the given class applied. |
 | **make** | `type, inner_html = null` | Create a new html element of the specified type and optionally fill it with the given html. |
 | **on** | `selector, event, closure` | Fire a callback on any element(s) matching the selector when the specified event type occurs. |
+| **off** | `selector, event, closure` | Disable an event for a closure on any element(s) matching the selector when called. |
 | **parent** | `selector` | Get an array of parents for the element(s) matching the selector. |
 | **prepend** | `selector, child_element` | Prepend the child element given to the element(s) matching the selector. |
 | **prop** | `name` | Returns a function that takes an object as an argument and returns the given property value on it. |
