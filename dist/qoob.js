@@ -70,7 +70,9 @@ function find(selector) {
     return null;
   }
 
-  if (selector.type) {
+  // selector == window check below fixes "SCRIPT5" access denied errors
+  // on IE as it treats `window` as a special little cupcake.
+  if (selector == window || selector.type) {
     return [selector];
   }
 
